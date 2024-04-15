@@ -2,6 +2,28 @@
 Pydantic Models for Users.
 """
 from pydantic import BaseModel
+from datetime import datetime
+
+
+class UserIn(BaseModel):
+    first_name: str
+    last_name: str
+    username: str
+    password: str
+    confirmed_password: str
+    date_of_birth: datetime
+    gender: str
+    phone: str
+
+
+class UserOut(UserIn):
+    id: int
+
+
+class UserUpdate(BaseModel):
+    password: str
+    confirmed_password: str
+    phone: str
 
 
 class UserRequest(BaseModel):
