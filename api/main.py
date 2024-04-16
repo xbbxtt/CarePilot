@@ -3,8 +3,9 @@ Entry point for the FastAPI Application
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import auth_router
+from routers import auth_router, users
 import os
+
 
 app = FastAPI()
 
@@ -17,7 +18,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router.router)
-
+app.include_router(users.router, tags=["patients"])
 
 @app.get("/api/launch-details")
 def launch_details():

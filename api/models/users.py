@@ -2,7 +2,7 @@
 Pydantic Models for Users.
 """
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import date
 
 
 class UserIn(BaseModel):
@@ -11,7 +11,7 @@ class UserIn(BaseModel):
     username: str
     password: str
     confirmed_password: str
-    date_of_birth: datetime
+    date_of_birth: date
     gender: str
     phone: str
 
