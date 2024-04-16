@@ -5,9 +5,11 @@ import os
 import psycopg
 from psycopg_pool import ConnectionPool
 from psycopg.rows import class_row
-from typing import Optional
-from models.users import UserWithPw
+from typing import Optional, Union
+from models.users import UserWithPw, UserIn, UserOut
 from utils.exceptions import UserDatabaseException
+from models.errors import Error
+from fastapi import HTTPException
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 if not DATABASE_URL:
@@ -113,3 +115,40 @@ class UserQueries:
                 f"Could not create user with username {username}"
             )
         return user
+
+class UserRepository:
+    def create(self, user: UserIn, hashed_password: str) -> Union[UserOut, Error]:
+        try:
+           
+            with pool.connection() as conn:
+
+                with conn.cursor() as db:
+
+                    result = db.execute(
+                        """
+                        INSERT INTO users
+                            (first_name, last_name, username, password, date_of_birth, gender, phone)
+                        VALUES
+                            (%s, %s, %s, %s, %s, %s, %s)
+                        RETURNING id;
+                        """,
+                        [
+                            user.first_name,
+                            user.last_name,
+                            user.username,
+                            hashed_password,
+                            user.date_of_birth,
+                            user.gender,
+                            user.phone
+                        ]
+                    )
+                    id = result.fetchone()[0]
+
+                    return self.user_in_to_out(id, user)
+        except Exception:
+            raise HTTPException(status_code=401, detail="Create did not work")
+
+
+    def user_in_to_out(self, id: int, user: UserIn):
+        old_data = user.dict()
+        return UserOut(id=id, **old_data)
