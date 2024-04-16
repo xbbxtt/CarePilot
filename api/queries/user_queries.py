@@ -119,11 +119,11 @@ class UserQueries:
 class UserRepository:
     def create(self, user: UserIn, hashed_password: str) -> Union[UserOut, Error]:
         try:
-            # connect the database
+           
             with pool.connection() as conn:
-                # get a cursor (something to run SQL with)
+
                 with conn.cursor() as db:
-                    # Run our INSERT statement
+
                     result = db.execute(
                         """
                         INSERT INTO users
@@ -143,9 +143,7 @@ class UserRepository:
                         ]
                     )
                     id = result.fetchone()[0]
-                    # Return new data
-                    # old_data = vacation.dict()
-                    # return VacationOut(id=id, **old_data)
+
                     return self.user_in_to_out(id, user)
         except Exception:
             raise HTTPException(status_code=401, detail="Create did not work")
@@ -154,20 +152,3 @@ class UserRepository:
     def user_in_to_out(self, id: int, user: UserIn):
         old_data = user.dict()
         return UserOut(id=id, **old_data)
-
-
-# no business logic/error handling? only do in routers! *
-
-# redo migration because need to hash password(s) *
-
-# also need to redo migrations/volume *
-
-# can take out confirmed password if want because not necessarily needed *
-
-# blowing up the database/volume recreating images containers *
-
-# taking out confirmed password it is useless in this case *
-
-# also changing type of data in postgreSQL table users for *
-
-# date_of_birth from TIMESTAMP to DATETIME? *
