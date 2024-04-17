@@ -10,7 +10,7 @@ from queries.user_queries import (
 
 router = APIRouter()
 
-@router.post("/patients", response_model=Union[UserOut, Error])
+@router.post("/api/patients", response_model=Union[UserOut, Error])
 def create_user(
     user: UserIn,
     response: Response,
@@ -22,7 +22,7 @@ def create_user(
     return repo.create(user, hashed_password)
 
 
-@router.get("/patients/{user_id}", response_model=Union[UserOut, Error])
+@router.get("/api/patients/{user_id}", response_model=Union[UserOut, Error])
 def get_user(
     user_id: int,
     repo: UserRepository = Depends(),
@@ -33,7 +33,7 @@ def get_user(
     return repo.get_user(user_id)
 
 
-@router.put("/patients/{user_id}", response_model=Union[UserOut, Error])
+@router.put("/api/patients/{user_id}", response_model=Union[UserOut, Error])
 def update_user(
     user_id: int,
     user: UserUpdate,

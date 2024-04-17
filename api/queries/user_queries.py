@@ -1,22 +1,14 @@
 """
 Database Queries for Users
 """
-import os
 import psycopg
-from psycopg_pool import ConnectionPool
+from queries.pool import pool
 from psycopg.rows import class_row
 from typing import Optional, Union
 from models.users import UserWithPw, UserIn, UserOut, UserUpdate
 from utils.exceptions import UserDatabaseException
 from models.errors import Error
 from fastapi import HTTPException
-
-DATABASE_URL = os.environ.get("DATABASE_URL")
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL environment variable is not set")
-
-pool = ConnectionPool(DATABASE_URL)
-
 
 class UserQueries:
     """

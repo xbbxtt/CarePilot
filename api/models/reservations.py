@@ -7,13 +7,13 @@ class ReservationIn(BaseModel):
     reason: str
     date: date
     time: time
-    patient_id: int
     doctor_id: int
-    status: str
+
 
 
 class ReservationOut(ReservationIn):
     id: int
+    status: str
 
 
 class ReservationUpdate(BaseModel):

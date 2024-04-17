@@ -1,4 +1,8 @@
 import os
 from psycopg_pool import ConnectionPool
 
-pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is not set")
+
+pool = ConnectionPool(DATABASE_URL)
