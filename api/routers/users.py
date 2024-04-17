@@ -26,6 +26,8 @@ def create_user(
 def get_user(
     user_id: int,
     repo: UserRepository = Depends(),
-    User: UserResponse = Depends(try_get_jwt_user_data),
+    user: UserResponse = Depends(try_get_jwt_user_data),
 ) -> UserOut:
+    if user is None:
+        raise HTTPException(status_code=401, detail='You must login!')
     return repo.get_user(user_id)
