@@ -6,7 +6,7 @@ import psycopg
 from psycopg_pool import ConnectionPool
 from psycopg.rows import class_row
 from typing import Optional, Union
-from models.users import UserWithPw, UserIn, UserOut
+from models.users import UserWithPw, UserIn, UserOut, UserUpdate
 from utils.exceptions import UserDatabaseException
 from models.errors import Error
 from fastapi import HTTPException
@@ -190,3 +190,41 @@ class UserRepository:
             gender=record[6],
             phone=record[7],
         )
+
+    def update_user(self, user_id: int, user: UserUpdate, hashed_password: str) -> Optional[UserOut]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # run our SELECT statement
+                    db.execute(
+                        """
+                        UPDATE users
+                        SET password = %s
+                          , phone = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            hashed_password,
+                            user.phone,
+                            user_id
+                        ]
+                    )
+                    result = db.execute(
+                        """
+                        SELECT
+                            id, first_name, last_name, username, password, date_of_birth, gender, phone
+                        FROM users
+
+                        WHERE id = %s;
+                        """,
+                        [
+                            user_id
+                        ]
+                    )
+                    record = result.fetchone()
+                    return self.record_to_user_out(record)
+        except Exception as e:
+            print(e)
+            raise HTTPException(status_code=404, detail="Could not get user")
