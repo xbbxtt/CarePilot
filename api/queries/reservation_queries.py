@@ -1,7 +1,7 @@
 import psycopg
 from queries.pool import pool
 from psycopg.rows import class_row
-from typing import Optional, Union
+from typing import Optional, Union, List
 from models.users import UserWithPw, UserIn, UserOut, UserUpdate
 from models.reservations import ReservationOut, ReservationIn, ReservationUpdate
 from utils.exceptions import UserDatabaseException
@@ -87,3 +87,48 @@ class ReservationRepository:
             doctor_id=record[6],
             status=record[7],
         )
+
+
+    def get_all_current_reservations(self) -> Union[Error, List[ReservationOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id, insurance, reason, date, time, patient_id, doctor_id, status
+                        FROM reservations
+                        WHERE status=%s
+                        ORDER BY date;
+                        """,
+                        ["current"]
+                    )
+                    return [
+                        self.record_to_reservation_out(record)
+                        for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            raise HTTPException(status_code=404, detail="Could not get reservation")
+
+
+
+    def get_all_completed_reservations(self) -> Union[Error, List[ReservationOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id, insurance, reason, date, time, patient_id, doctor_id, status
+                        FROM reservations
+                        WHERE status=%s
+                        ORDER BY date;
+                        """,
+                        ["completed"]
+                    )
+                    return [
+                        self.record_to_reservation_out(record)
+                        for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            raise HTTPException(status_code=404, detail="Could not get reservation")

@@ -32,3 +32,22 @@ def get_reservation(
     if user_response is None:
         raise HTTPException(status_code=401, detail='You must login!')
     return repo.get_reservation(reservation_id)
+
+
+@router.get("/api/reservations", response_model=Union[List[ReservationOut], Error])
+def get_all_current_reservations(
+    repo: ReservationRepository = Depends(),
+    user_response: UserResponse = Depends(try_get_jwt_user_data),
+) -> List[ReservationOut]:
+    if user_response is None:
+        raise HTTPException(status_code=401, detail='You must login!')
+    return repo.get_all_current_reservations()
+
+@router.get("/api/history/reservations", response_model=Union[List[ReservationOut], Error])
+def get_all_completed_reservations(
+    repo: ReservationRepository = Depends(),
+    user_response: UserResponse = Depends(try_get_jwt_user_data),
+) -> List[ReservationOut]:
+    if user_response is None:
+        raise HTTPException(status_code=401, detail='You must login!')
+    return repo.get_all_completed_reservations()
