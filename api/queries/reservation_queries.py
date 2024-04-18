@@ -44,3 +44,46 @@ class ReservationRepository:
     def reservation_in_to_out(self, id: int, reservation: ReservationIn, status: str):
         old_data = reservation.dict()
         return ReservationOut(id=id, status=status, **old_data)
+
+    def get_reservation(self, reservation_id: int) -> Optional[ReservationOut]:
+        try:
+            with pool.connection() as conn:
+
+                with conn.cursor() as db:
+
+                    result = db.execute(
+                        """
+                        SELECT
+                            id,
+                            insurance,
+                            reason,
+                            date,
+                            time,
+                            patient_id,
+                            doctor_id,
+                            status
+
+                        FROM reservations
+
+                        WHERE id = %s;
+                        """,
+                        [
+                            reservation_id
+                        ]
+                    )
+                    record = result.fetchone()
+                    return self.record_to_reservation_out(record)
+        except Exception as e:
+            print(e)
+            raise HTTPException(status_code=404, detail="Could not get reservation")
+
+    def record_to_reservation_out(self, record):
+        return ReservationOut(
+            id=record[0],
+            insurance=record[1],
+            reason=record[2],
+            date=record[3],
+            time=record[4],
+            doctor_id=record[6],
+            status=record[7],
+        )

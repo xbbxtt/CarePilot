@@ -10,6 +10,7 @@ from queries.reservation_queries import (
 
 router = APIRouter()
 
+
 @router.post("/api/reservations", response_model=Union[ReservationOut, Error])
 def create_reservation(
     reservation: ReservationIn,
@@ -20,3 +21,14 @@ def create_reservation(
     if user_response is None:
         raise HTTPException(status_code=401, detail='You must login!')
     return repo.create(reservation, user_response.id)
+
+
+@router.get("/api/reservations/{reservation_id}", response_model=Union[ReservationOut, Error])
+def get_reservation(
+    reservation_id: int,
+    repo: ReservationRepository = Depends(),
+    user_response: UserResponse = Depends(try_get_jwt_user_data),
+) -> ReservationOut:
+    if user_response is None:
+        raise HTTPException(status_code=401, detail='You must login!')
+    return repo.get_reservation(reservation_id)
