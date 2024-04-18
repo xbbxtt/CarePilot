@@ -132,3 +132,49 @@ class ReservationRepository:
         except Exception as e:
             print(e)
             raise HTTPException(status_code=404, detail="Could not get reservation")
+
+    def complete_reservation(self, reservation_id: int, reservation: ReservationUpdate) -> Optional[ReservationOut]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # run our SELECT statement
+                    new_status = "completed"
+                    db.execute(
+                        """
+                        UPDATE reservations
+                        SET insurance = %s
+                            , reason = %s
+                            , date = %s
+                            , time = %s
+                            , status = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            reservation.insurance,
+                            reservation.reason,
+                            reservation.date,
+                            reservation.time,
+                            new_status,
+                            reservation_id
+                        ]
+                    )
+                    result = db.execute(
+                        """
+                        SELECT
+                            id, insurance, reason, date, time, patient_id, doctor_id, status
+                        FROM reservations
+
+                        WHERE id = %s;
+                        """,
+                        [
+                            reservation_id
+                        ]
+                    )
+                    record = result.fetchone()
+                    print(record)
+                    return self.record_to_reservation_out(record)
+        except Exception as e:
+            print(e)
+            raise HTTPException(status_code=404, detail="Could not update reservation")

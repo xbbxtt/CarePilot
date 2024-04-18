@@ -51,3 +51,15 @@ def get_all_completed_reservations(
     if user_response is None:
         raise HTTPException(status_code=401, detail='You must login!')
     return repo.get_all_completed_reservations()
+
+
+@router.put("/api/reservations/{reservation_id}", response_model=Union[ReservationOut, Error])
+def complete_reservation(
+    reservation_id: int,
+    reservation: ReservationUpdate,
+    repo: ReservationRepository = Depends(),
+    user_response: UserResponse = Depends(try_get_jwt_user_data),
+) -> Union[ReservationOut, Error]:
+    if user_response is None:
+        raise HTTPException(status_code=401, detail='You must login!')
+    return repo.complete_reservation(reservation_id, reservation)
