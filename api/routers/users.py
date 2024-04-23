@@ -10,17 +10,6 @@ from queries.user_queries import (
 
 router = APIRouter()
 
-@router.post("/api/patients", response_model=Union[UserOut, Error])
-def create_user(
-    user: UserIn,
-    response: Response,
-    repo: UserRepository = Depends(),
-) -> UserOut:
-    if user.password != user.confirmed_password:
-        raise HTTPException(status_code=422, detail="Passwords do not match")
-    hashed_password = hash_password(user.password)
-    return repo.create(user, hashed_password)
-
 
 @router.get("/api/patients/{user_id}", response_model=Union[UserOut, Error])
 def get_user(

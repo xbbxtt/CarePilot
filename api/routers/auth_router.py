@@ -14,7 +14,7 @@ from queries.user_queries import (
 )
 
 from utils.exceptions import UserDatabaseException
-from models.users import UserRequest, UserResponse
+from models.users import UserRequest, UserResponse, UserIn
 
 from utils.authentication import (
     try_get_jwt_user_data,
@@ -30,7 +30,7 @@ router = APIRouter(tags=["Authentication"], prefix="/api/auth")
 
 @router.post("/signup")
 async def signup(
-    new_user: UserRequest,
+    new_user: UserIn,
     request: Request,
     response: Response,
     queries: UserQueries = Depends(),
@@ -43,7 +43,7 @@ async def signup(
 
     # Create the user in the database
     try:
-        user = queries.create_user(new_user.username, hashed_password)
+        user = queries.create_user(new_user, hashed_password)
     except UserDatabaseException as e:
         print(e)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

@@ -73,7 +73,7 @@ class UserQueries:
 
         return user
 
-    def create_user(self, username: str, hashed_password: str) -> UserWithPw:
+    def create_user(self, username: UserIn, hashed_password: str) -> UserWithPw:
         """
         Creates a new user in the database
 
@@ -84,61 +84,35 @@ class UserQueries:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
                     cur.execute(
                         """
-                        INSERT INTO users (
-                            username,
-                            password
-                        ) VALUES (
-                            %s, %s
-                        )
-                        RETURNING *;
-                        """,
-                        [
-                            username,
-                            hashed_password,
-                        ],
-                    )
-                    user = cur.fetchone()
-                    if not user:
-                        raise UserDatabaseException(
-                            f"Could not create user with username {username}"
-                        )
-        except psycopg.Error:
-            raise UserDatabaseException(
-                f"Could not create user with username {username}"
-            )
-        return user
-
-class UserRepository:
-    def create(self, user: UserIn, hashed_password: str) -> Union[UserOut, Error]:
-        try:
-
-            with pool.connection() as conn:
-
-                with conn.cursor() as db:
-
-                    result = db.execute(
-                        """
                         INSERT INTO users
                             (first_name, last_name, username, password, date_of_birth, gender, phone)
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s)
-                        RETURNING id;
+                        RETURNING *;
                         """,
                         [
-                            user.first_name,
-                            user.last_name,
-                            user.username,
+                            username.first_name,
+                            username.last_name,
+                            username.username,
                             hashed_password,
-                            user.date_of_birth,
-                            user.gender,
-                            user.phone
+                            username.date_of_birth,
+                            username.gender,
+                            username.phone
                         ]
                     )
-                    id = result.fetchone()[0]
-                    return self.user_in_to_out(id, user)
-        except Exception:
-            raise HTTPException(status_code=401, detail="Create did not work")
+                    user = cur.fetchone()
+                    print("------------", user)
+                    if not user:
+                        raise UserDatabaseException(
+                            f"Could not create user with username {username.username}"
+                        )
+        except psycopg.Error:
+            raise UserDatabaseException(
+                f"Could not create user with username {username.username}"
+            )
+        return user
 
+class UserRepository:
     def user_in_to_out(self, id: int, user: UserIn):
         old_data = user.dict()
         return UserOut(id=id, **old_data)
