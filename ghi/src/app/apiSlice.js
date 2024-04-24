@@ -11,14 +11,16 @@ export const carePilotApi = createApi({
             query: () => ({
                 url: '/api/auth/authenticate',
                 credentials: 'include'
-            })
+            }),
+            providesTags: ["Users"]
         }),
         signout: builder.mutation({
             query: () => ({
                 url: '/api/auth/signout',
                 method: 'DELETE',
                 credentials: 'include'
-            })
+            }),
+            invalidatesTags: ["Users"]
         })
     })
 })
