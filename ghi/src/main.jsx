@@ -8,6 +8,8 @@ import SignUpForm from './components/SignUpForm'
 import App from './App'
 
 import './index.css'
+import { Provider } from 'react-redux'
+import { store } from './app/store'
 
 const BASE_URL = import.meta.env.BASE_URL
 if (!BASE_URL) {
@@ -28,6 +30,7 @@ const router = createBrowserRouter(
                     path: 'signin',
                     element: <SignInForm />,
                 },
+
             ],
         },
     ],
@@ -48,6 +51,8 @@ console.table(import.meta.env)
 const root = ReactDOM.createRoot(rootElement)
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
     </React.StrictMode>
 )

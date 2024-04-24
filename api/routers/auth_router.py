@@ -116,7 +116,7 @@ async def signin(
 @router.get("/authenticate")
 async def authenticate(
     user: UserResponse = Depends(try_get_jwt_user_data),
-) -> UserResponse:
+) -> UserResponse | None:
     """
     This function returns the user if the user is logged in.
 
@@ -128,10 +128,7 @@ async def authenticate(
     This can be used in your frontend to determine if a user
     is logged in or not
     """
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Not logged in"
-        )
+
     return user
 
 

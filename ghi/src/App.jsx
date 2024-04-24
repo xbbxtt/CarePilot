@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom'
 
 import ErrorNotification from './components/ErrorNotification'
 
+import Nav from "./components/Nav"
 import './App.css'
 
 // When using environment variables, you should do a check to see if
@@ -25,8 +26,9 @@ if (!API_HOST) {
 function App() {
     return (
         <div className="App">
+            <Nav/>
             <header className="App-header">{/* <Nav /> */}</header>
-            {/* <ErrorNotification error={error} /> */}
+
         </div>
     )
 }

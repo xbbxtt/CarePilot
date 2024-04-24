@@ -1,0 +1,29 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
+export const carePilotApi = createApi({
+    reducerPath: 'carePilotApi',
+    baseQuery: fetchBaseQuery({
+        baseUrl: import.meta.env.VITE_API_HOST,
+
+    }),
+    endpoints: (builder) => ({
+        authenticate: builder.query({
+            query: () => ({
+                url: '/api/auth/authenticate',
+                credentials: 'include'
+            })
+        }),
+        signout: builder.mutation({
+            query: () => ({
+                url: '/api/auth/signout',
+                method: 'DELETE',
+                credentials: 'include'
+            })
+        })
+    })
+})
+
+export const {
+    useAuthenticateQuery,
+    useSignoutMutation,
+} = carePilotApi
