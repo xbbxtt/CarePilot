@@ -1,29 +1,28 @@
 // @ts-check
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSigninMutation} from '../app/apiSlice'
+import { useSigninMutation } from '../app/apiSlice'
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const [signin, signinStatus] = useSigninMutation()
+    const navigate = useNavigate()
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+    const [signin, signinStatus] = useSigninMutation()
 
-  console.log(signinStatus)
+    console.log(signinStatus)
 
-  useEffect(() => {
-    if (signinStatus.isSuccess) navigate('/')
-    if (signinStatus.isError) {
-        setErrorMessage(signinStatus.error.data.detail)
+    useEffect(() => {
+        if (signinStatus.isSuccess) navigate('/')
+        if (signinStatus.isError) {
+            setErrorMessage(signinStatus.error.data.detail)
+        }
+    }, [signinStatus, navigate])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        signin({ username, password })
     }
-  }, [signinStatus, navigate])
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    signin({username, password})
-  }
-
 
     return (
         <div className="row">
@@ -60,7 +59,7 @@ const Login = () => {
                         />
                     </div>
                     <button type="submit" className="btn btn-success">
-                        Submit
+                        Sign In
                     </button>
                 </form>
             </div>

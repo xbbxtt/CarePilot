@@ -30,7 +30,6 @@ const router = createBrowserRouter(
                     path: 'signin',
                     element: <SignInForm />,
                 },
-
             ],
         },
     ],
