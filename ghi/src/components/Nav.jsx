@@ -1,13 +1,14 @@
 import {Link, NavLink, useNavigate} from 'react-router-dom'
-import {useSignoutMutation, useAuthenticateQuery} from "../app/apiSlice"
+import {useSignoutMutation, useAuthenticateQuery, useSigninMutation} from "../app/apiSlice"
 import {useEffect} from 'react'
 
 const Nav = () => {
     const navigate = useNavigate()
     const {data: user} = useAuthenticateQuery()
     const [ signout, signoutStatus] = useSignoutMutation()
+    const [ signin, signinStatus] = useSigninMutation()
     console.log({user})
-    console.log({signoutStatus})
+    console.log({signinStatus})
 
     useEffect(() => {
         if (signoutStatus.isSuccess) navigate('/')
@@ -30,7 +31,7 @@ const Nav = () => {
                             <NavLink to={'/'} className={'nav-link'}>Home</NavLink>
                         </li>
                         {!user && <li className="nav-item">
-                            <NavLink to={'/login'} className={'nav-link'}>Login</NavLink>
+                            <NavLink to={'/signin'} className={'nav-link'}>Login</NavLink>
                         </li>}
                         {!user && <li className="nav-item">
                             <NavLink to={'/signup'} className={'nav-link'}>Sign Up</NavLink>

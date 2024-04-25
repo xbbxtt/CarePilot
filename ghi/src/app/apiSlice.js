@@ -21,6 +21,15 @@ export const carePilotApi = createApi({
                 credentials: 'include'
             }),
             invalidatesTags: ["Users"]
+        }),
+         signin: builder.mutation({
+            query: (body) => ({
+                url: '/api/auth/signin',
+                method: 'POST',
+                body,
+                credentials: 'include'
+            }),
+            invalidatesTags: ["Users"]
         })
     })
 })
@@ -28,4 +37,5 @@ export const carePilotApi = createApi({
 export const {
     useAuthenticateQuery,
     useSignoutMutation,
+    useSigninMutation,
 } = carePilotApi
