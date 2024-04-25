@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import ReservationForm from './components/ReservationForm'
+import CurrentReservations from './components/CurrentReservations'
 import Home from './components/Home'
 import App from './App'
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter(
                 {
                     path: 'reservations/new',
                     element: <ReservationForm />,
+                },
+                {
+                    path: 'reservations',
+                    element: <CurrentReservations />,
                 },
             ],
         },

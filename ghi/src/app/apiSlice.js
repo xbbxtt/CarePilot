@@ -48,6 +48,14 @@ export const carePilotApi = createApi({
                 credentials: 'include'
             }),
             invalidatesTags: ["Users"]
+        }),
+        currentReservations: builder.query({
+            query: () => ({
+                url: '/api/reservations',
+                method: 'GET',
+                credentials: 'include'
+            }),
+            invalidatesTags: ["Users"]
         })
     })
 })
@@ -58,4 +66,5 @@ export const {
     useSigninMutation,
     useSignupMutation,
     useNewReservationMutation,
+    useCurrentReservationsQuery,
 } = carePilotApi

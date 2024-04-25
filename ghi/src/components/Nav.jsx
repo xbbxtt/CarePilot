@@ -1,5 +1,5 @@
 import {Link, NavLink, useNavigate} from 'react-router-dom'
-import {useSignoutMutation, useAuthenticateQuery, useSigninMutation, useNewReservationMutation,} from "../app/apiSlice"
+import {useSignoutMutation, useAuthenticateQuery, useSigninMutation, useNewReservationMutation, useCurrentReservationsQuery} from "../app/apiSlice"
 import {useEffect} from 'react'
 
 const Nav = () => {
@@ -39,6 +39,9 @@ const Nav = () => {
                         </li>}
                         {user && <li className="nav-item">
                             <NavLink to={'/reservations/new'} className={'nav-link'}>New Reservation</NavLink>
+                        </li>}
+                        {user && <li className="nav-item">
+                            <NavLink to={'/reservations'} className={'nav-link'}>Current Reservations</NavLink>
                         </li>}
                     </ul>
                     {user && <button className="btn btn-outline-danger" onClick={onSignoutClick}>
