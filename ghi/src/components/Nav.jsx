@@ -1,5 +1,5 @@
 import {Link, NavLink, useNavigate} from 'react-router-dom'
-import {useSignoutMutation, useAuthenticateQuery, useSigninMutation} from "../app/apiSlice"
+import {useSignoutMutation, useAuthenticateQuery, useSigninMutation, useNewReservationMutation,} from "../app/apiSlice"
 import {useEffect} from 'react'
 
 const Nav = () => {
@@ -7,12 +7,13 @@ const Nav = () => {
     const {data: user} = useAuthenticateQuery()
     const [ signout, signoutStatus] = useSignoutMutation()
     const [ signin, signinStatus] = useSigninMutation()
-    console.log({user})
-    console.log({signinStatus})
+    const [ newReservation, newReservationsStatus ] = useNewReservationMutation()
+    console.log({newReservation})
+    console.log({newReservationsStatus})
 
     useEffect(() => {
-        if (signoutStatus.isSuccess) navigate('/')
-    }, [signoutStatus])
+        if (newReservationsStatus.isSuccess) navigate('/')
+    }, [newReservationsStatus])
 
     const onSignoutClick = (e) => {
         signout()
@@ -35,6 +36,9 @@ const Nav = () => {
                         </li>}
                         {!user && <li className="nav-item">
                             <NavLink to={'/signup'} className={'nav-link'}>Sign Up</NavLink>
+                        </li>}
+                        {user && <li className="nav-item">
+                            <NavLink to={'/reservations/new'} className={'nav-link'}>New Reservation</NavLink>
                         </li>}
                     </ul>
                     {user && <button className="btn btn-outline-danger" onClick={onSignoutClick}>

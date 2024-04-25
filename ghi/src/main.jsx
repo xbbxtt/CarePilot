@@ -5,6 +5,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
+import ReservationForm from './components/ReservationForm'
+import Home from './components/Home'
 import App from './App'
 
 import './index.css'
@@ -23,12 +25,19 @@ const router = createBrowserRouter(
             element: <App />,
             children: [
                 {
+                    index: true, element: <Home />
+                },
+                {
                     path: 'signup',
                     element: <SignUpForm />,
                 },
                 {
                     path: 'signin',
                     element: <SignInForm />,
+                },
+                {
+                    path: 'reservations/new',
+                    element: <ReservationForm />,
                 },
             ],
         },
