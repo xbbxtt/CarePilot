@@ -1,14 +1,10 @@
-//@ts-check
-/**
- * @param {{error?: string}} props
- * @returns {React.ReactNode}
- */
+
 function ErrorNotification(props) {
     if (!props.error) {
         return null
     }
 
-    return <div className="notification is-danger">{props.error}</div>
+    return <div className="notification is-danger">{props.error.data.detail}</div>
 }
 
 export default ErrorNotification
