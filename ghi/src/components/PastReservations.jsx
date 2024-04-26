@@ -1,21 +1,21 @@
-import { useCurrentReservationsQuery } from '../app/apiSlice';
+import { usePastReservationsQuery } from '../app/apiSlice';
 import { NavLink } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
 
-const CurrentReservations = () => {
-    const { data, isLoading, error } = useCurrentReservationsQuery();
+const PastReservations = () => {
+    const { data, isLoading, error } = usePastReservationsQuery();
 
     if (isLoading) return <>Loading...</>
 
-
-    if(error.data.detail){
+     if(error.data.detail){
         return (<div><ErrorNotification error={error} /></div>)
     }
+
     return (
         <>
             <div>
                 <h1 className='mt-3'>
-                    Current reservations
+                    Reservation History
                 </h1>
             </div>
             <div>
@@ -59,4 +59,4 @@ const CurrentReservations = () => {
     )
 }
 
-export default CurrentReservations;
+export default PastReservations;

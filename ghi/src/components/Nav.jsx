@@ -43,6 +43,10 @@ const Nav = () => {
                         {user && <li className="nav-item">
                             <NavLink to={'/reservations'} className={'nav-link'}>Current Reservations</NavLink>
                         </li>}
+
+                        {user && <li className="nav-item">
+                            <NavLink to={'/reservations/history'} className={'nav-link'}>Reservation History</NavLink>
+                        </li>}
                     </ul>
                     {user && <button className="btn btn-outline-danger" onClick={onSignoutClick}>
                         Logout

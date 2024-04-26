@@ -7,6 +7,7 @@ import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import ReservationForm from './components/ReservationForm'
 import CurrentReservations from './components/CurrentReservations'
+import PastReservations from './components/PastReservations'
 import Home from './components/Home'
 import App from './App'
 
@@ -44,6 +45,12 @@ const router = createBrowserRouter(
                     path: 'reservations',
                     element: <CurrentReservations />,
                 },
+                {
+                    path: 'reservations/history',
+                    element: <PastReservations />,
+                },
+
+
             ],
         },
     ],
