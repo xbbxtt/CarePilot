@@ -1,6 +1,7 @@
 import { useCurrentReservationsQuery } from '../app/apiSlice';
 import { NavLink } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
+import ReservationDetail from './ReservationDetail'
 
 const CurrentReservations = () => {
     const { data, isLoading, error } = useCurrentReservationsQuery();
@@ -41,6 +42,12 @@ const CurrentReservations = () => {
                                     <td>{ reservation.doctor_id }</td>
                                     <td>{ reservation.reason }</td>
                                     <td>{ reservation.insurance }</td>
+
+                                    <td>
+                                        <NavLink className="nav-link active" aria-current="page" to={`/reservations/${reservation.id}/`}>
+                                            <button variant="primary">Detail</button>
+                                        </NavLink>
+                                    </td>
                                     {/* <td>
                                         <button onClick={() => cancelAppoinment(createdAppointment.id)}>Cancel</button>
                                     </td>

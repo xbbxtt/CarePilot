@@ -8,6 +8,7 @@ import SignUpForm from './components/SignUpForm'
 import ReservationForm from './components/ReservationForm'
 import CurrentReservations from './components/CurrentReservations'
 import PastReservations from './components/PastReservations'
+import ReservationDetail from './components/ReservationDetail'
 import Home from './components/Home'
 import App from './App'
 
@@ -27,7 +28,8 @@ const router = createBrowserRouter(
             element: <App />,
             children: [
                 {
-                    index: true, element: <Home />
+                    index: true,
+                    element: <Home />,
                 },
                 {
                     path: 'signup',
@@ -49,8 +51,10 @@ const router = createBrowserRouter(
                     path: 'reservations/history',
                     element: <PastReservations />,
                 },
-
-
+                {
+                    path: 'reservations/:id',
+                    element: <ReservationDetail />,
+                },
             ],
         },
     ],
