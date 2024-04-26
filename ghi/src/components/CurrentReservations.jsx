@@ -8,10 +8,8 @@ const CurrentReservations = () => {
     if (isLoading) return <>Loading...</>
 
 
-    if(error.data.detail){
-        return (<div><ErrorNotification error={error} /></div>)
-    }
-    return (
+    if(error == undefined){
+        return (
         <>
             <div>
                 <h1 className='mt-3'>
@@ -57,6 +55,11 @@ const CurrentReservations = () => {
             </div>
         </>
     )
+    }
+    else {
+        return (<div><ErrorNotification error={error} /></div>)
+    }
+
 }
 
 export default CurrentReservations;
