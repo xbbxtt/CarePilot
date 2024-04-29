@@ -1,16 +1,34 @@
-import { useReservationDetailQuery } from '../app/apiSlice'
+import { useReservationDetailQuery, useReservationCompleteMutation, useReservationCancelledMutation} from '../app/apiSlice'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
+import {useEffect } from 'react'
 
 const ReservationDetail = () => {
     const { id } = useParams()
     const { data, isLoading, error } = useReservationDetailQuery(id)
     const navigate = useNavigate()
+    const [completeReservation, completeReservationStatus] = useReservationCompleteMutation()
+    const [cancelReservation, cancelReservationStatus] = useReservationCancelledMutation()
+
+    console.log(cancelReservationStatus)
+
+    useEffect(() => {
+        if (completeReservationStatus.isSuccess) navigate('/reservations/history')
+        if (completeReservationStatus.isError) {
+            setErrorMessage(completeReservationStatus.error.data.detail)
+        }
+    }, [completeReservationStatus, navigate])
+
+    useEffect(() => {
+        if (cancelReservationStatus.isSuccess) navigate('/reservations/history')
+        if (cancelReservationStatus.isError) {
+            setErrorMessage(cancelReservationStatus.error.data.detail)
+        }
+    }, [cancelReservationStatus, navigate])
 
 
     if (isLoading) return <>Loading...</>
-    console.log(error)
-    console.log(data)
+
     if (error == undefined) {
         return (
             <>
@@ -49,12 +67,12 @@ const ReservationDetail = () => {
                                         <td>
                                         <button onClick={() => navigate(`/reservations/${data.id}/update`)}>Update</button>
                                         </td>
-                                        {/* <td>
-                                        <button onClick={() => cancelAppoinment(createdAppointment.id)}>Cancel</button>
+                                        <td>
+                                        <button onClick={() => cancelReservation(data.id)}>Cancel</button>
                                     </td>
                                     <td>
-                                        <button onClick={() => finishAppoinment(createdAppointment.id)}>Finish</button>
-                                    </td> */}
+                                        <button onClick={() => completeReservation(data.id)}>Complete</button>
+                                    </td>
                                     </tr>
                         </tbody>
                     </table>

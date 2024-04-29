@@ -82,7 +82,26 @@ export const carePilotApi = createApi({
                 credentials: 'include'
             }),
             invalidatesTags: ["Users"]
+        }),
+        reservationComplete: builder.mutation({
+            query: (reservation_id) => ({
+                url: `/api/reservations/${reservation_id}/complete`,
+                method: 'PUT',
+                reservation_id,
+                credentials: 'include'
+            }),
+            invalidatesTags: ["Users"]
+        }),
+        reservationCancelled: builder.mutation({
+            query: (reservation_id) => ({
+                url: `/api/reservations/${reservation_id}/cancel`,
+                method: 'PUT',
+                reservation_id,
+                credentials: 'include'
+            }),
+            invalidatesTags: ["Users"]
         })
+
     })
 })
 
@@ -96,4 +115,6 @@ export const {
     usePastReservationsQuery,
     useReservationDetailQuery,
     useReservationUpdateMutation,
+    useReservationCompleteMutation,
+    useReservationCancelledMutation,
 } = carePilotApi

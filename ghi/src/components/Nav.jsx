@@ -7,8 +7,8 @@ const Nav = () => {
     const {data: user} = useAuthenticateQuery()
     const [ signout, signoutStatus] = useSignoutMutation()
     const [ signin, signinStatus] = useSigninMutation()
-    console.log({user})
-    console.log({signinStatus})
+    // console.log({user})
+    // console.log({signinStatus})
 
     useEffect(() => {
         if (signoutStatus.isSuccess) navigate('/')

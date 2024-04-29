@@ -16,6 +16,9 @@ const ReservationUpdate = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [reservationUpdate, reservationUpdateStatus] = useReservationUpdateMutation()
 
+
+
+
     useEffect(() => {
         if (data) {
             setInsurance(data.insurance),
