@@ -7,13 +7,12 @@ const Nav = () => {
     const {data: user} = useAuthenticateQuery()
     const [ signout, signoutStatus] = useSignoutMutation()
     const [ signin, signinStatus] = useSigninMutation()
-    const [ newReservation, newReservationsStatus ] = useNewReservationMutation()
-    console.log({newReservation})
-    console.log({newReservationsStatus})
+    console.log({user})
+    console.log({signinStatus})
 
     useEffect(() => {
-        if (newReservationsStatus.isSuccess) navigate('/')
-    }, [newReservationsStatus])
+        if (signoutStatus.isSuccess) navigate('/')
+    }, [signoutStatus])
 
     const onSignoutClick = (e) => {
         signout()

@@ -9,6 +9,7 @@ import ReservationForm from './components/ReservationForm'
 import CurrentReservations from './components/CurrentReservations'
 import PastReservations from './components/PastReservations'
 import ReservationDetail from './components/ReservationDetail'
+import ReservationUpdate from './components/ReservationUpdate'
 import Home from './components/Home'
 import App from './App'
 
@@ -54,6 +55,10 @@ const router = createBrowserRouter(
                 {
                     path: 'reservations/:id',
                     element: <ReservationDetail />,
+                },
+                {
+                    path: 'reservations/:id/update',
+                    element: <ReservationUpdate />,
                 },
             ],
         },

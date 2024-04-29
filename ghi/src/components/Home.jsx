@@ -20,7 +20,7 @@ const Home = () => (
                             <button className="btn btn-primary btn-lg">Make A Reservation</button>
                         </div>
                         <a href="#"></a>
-                            <img src="https://imgur.com/btoIi1Z.jpg" class="img-fluid rounded" width="700"></img>
+                            <img src="https://imgur.com/btoIi1Z.jpg" className="img-fluid rounded" width="700"></img>
 
                     </div>
                 </div>

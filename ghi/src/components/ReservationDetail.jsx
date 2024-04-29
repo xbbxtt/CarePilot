@@ -1,11 +1,11 @@
 import { useReservationDetailQuery } from '../app/apiSlice'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
-import { useParams } from "react-router-dom"
 
 const ReservationDetail = () => {
     const { id } = useParams()
     const { data, isLoading, error } = useReservationDetailQuery(id)
+    const navigate = useNavigate()
 
 
     if (isLoading) return <>Loading...</>
@@ -46,6 +46,9 @@ const ReservationDetail = () => {
                                         <td>{data.doctor_id}</td>
                                         <td>{data.reason}</td>
                                         <td>{data.insurance}</td>
+                                        <td>
+                                        <button onClick={() => navigate(`/reservations/${data.id}/update`)}>Update</button>
+                                        </td>
                                         {/* <td>
                                         <button onClick={() => cancelAppoinment(createdAppointment.id)}>Cancel</button>
                                     </td>
