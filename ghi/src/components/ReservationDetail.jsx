@@ -10,7 +10,7 @@ const ReservationDetail = () => {
     const [completeReservation, completeReservationStatus] = useReservationCompleteMutation()
     const [cancelReservation, cancelReservationStatus] = useReservationCancelledMutation()
 
-    console.log(cancelReservationStatus)
+    console.log(data)
 
     useEffect(() => {
         if (completeReservationStatus.isSuccess)
@@ -64,22 +64,44 @@ const ReservationDetail = () => {
                             </tr>
                         </thead>
                         <tbody>
-                                    <tr key={data.id}>
-                                        <td>{data.date}</td>
-                                        <td>{data.time}</td>
-                                        <td>{data.doctor_id}</td>
-                                        <td>{data.reason}</td>
-                                        <td>{data.insurance}</td>
-                                        <td>
-                                        <button onClick={() => navigate(`/reservations/${data.id}/update`)}>Update</button>
-                                        </td>
-                                        <td>
-                                        <button onClick={() => cancelReservation(data.id)}>Cancel</button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => completeReservation(data.id)}>Complete</button>
-                                    </td>
-                                    </tr>
+                            <tr key={data.id}>
+                                <td>{data.date}</td>
+                                <td>{data.time}</td>
+                                <td>
+                                    {data.first_name} {data.last_name}
+                                </td>
+                                <td>{data.reason}</td>
+                                <td>{data.insurance}</td>
+                                <td>
+                                    <button
+                                        onClick={() =>
+                                            navigate(
+                                                `/reservations/${data.id}/update`
+                                            )
+                                        }
+                                    >
+                                        Update
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        onClick={() =>
+                                            cancelReservation(data.id)
+                                        }
+                                    >
+                                        Cancel
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        onClick={() =>
+                                            completeReservation(data.id)
+                                        }
+                                    >
+                                        Complete
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -70,15 +70,20 @@ const ReservationUpdate = () => {
                             </tr>
                         </thead>
                         <tbody>
-                                    <tr key={data.id}>
-                                        <td>{data.doctor_id}</td>
-                                    </tr>
+                            <tr key={data.id}>
+                                <td>
+                                    {data.first_name} {data.last_name}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="UpdateReservation_insurance" className="form-label">
+                        <label
+                            htmlFor="UpdateReservation_insurance"
+                            className="form-label"
+                        >
                             Insurance
                         </label>
                         <input
@@ -90,7 +95,10 @@ const ReservationUpdate = () => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="UpdateReservation_reason" className="form-label">
+                        <label
+                            htmlFor="UpdateReservation_reason"
+                            className="form-label"
+                        >
                             Reason
                         </label>
                         <input
@@ -113,9 +121,7 @@ const ReservationUpdate = () => {
                             className="form-control"
                             id="UpdateReservation_date"
                             value={date}
-                            onChange={(e) =>
-                                setDate(e.target.value)
-                            }
+                            onChange={(e) => setDate(e.target.value)}
                         />
                     </div>
                     <div className="mb-3">

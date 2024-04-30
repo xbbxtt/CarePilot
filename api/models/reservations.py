@@ -3,12 +3,11 @@ from datetime import date,time
 
 
 class ReservationIn(BaseModel):
-    insurance: bool
+    insurance: str
     reason: str
     date: date
     time: time
     doctor_id: int
-
 
 
 class ReservationOut(ReservationIn):
@@ -17,7 +16,14 @@ class ReservationOut(ReservationIn):
 
 
 class ReservationUpdate(BaseModel):
-    insurance: bool
+    insurance: str
     reason: str
     date: date
     time: time
+
+
+class ReservationDrOut(ReservationIn):
+    id: int
+    status: str
+    first_name: str
+    last_name: str

@@ -35,20 +35,22 @@ const PastReservations = () => {
                     <tbody>
                     {data.map(reservation => {
                         return (
-                                <tr key={reservation.id} >
-                                    <td>{ reservation.date }</td>
-                                    <td>{ reservation.time }</td>
-                                    <td>{ reservation.doctor_id }</td>
-                                    <td>{ reservation.reason }</td>
-                                    <td>{ reservation.insurance }</td>
-                                    {/* <td>
+                            <tr key={reservation.id}>
+                                <td>{reservation.date}</td>
+                                <td>{reservation.time}</td>
+                                <td>
+                                    {reservation.first_name} {reservation.last_name}
+                                </td>
+                                <td>{reservation.reason}</td>
+                                <td>{reservation.insurance}</td>
+                                {/* <td>
                                         <button onClick={() => cancelAppoinment(createdAppointment.id)}>Cancel</button>
                                     </td>
                                     <td>
                                         <button onClick={() => finishAppoinment(createdAppointment.id)}>Finish</button>
                                     </td> */}
-                                </tr>
-                        );
+                            </tr>
+                        )
                     })}
                     </tbody>
                 </table>

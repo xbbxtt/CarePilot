@@ -3,7 +3,7 @@ from queries.pool import pool
 from psycopg.rows import class_row
 from typing import Optional, Union, List
 from models.users import UserWithPw, UserIn, UserOut, UserUpdate
-from models.reservations import ReservationOut, ReservationIn, ReservationUpdate
+from models.reservations import ReservationOut, ReservationIn, ReservationUpdate, ReservationDrOut
 from utils.exceptions import UserDatabaseException
 from models.errors import Error
 from fastapi import HTTPException
@@ -45,7 +45,7 @@ class ReservationRepository:
         old_data = reservation.dict()
         return ReservationOut(id=id, status=status, **old_data)
 
-    def get_reservation(self, reservation_id: int) -> Optional[ReservationOut]:
+    def get_reservation(self, reservation_id: int) -> Optional[ReservationDrOut]:
         try:
             with pool.connection() as conn:
 
@@ -54,28 +54,45 @@ class ReservationRepository:
                     result = db.execute(
                         """
                         SELECT
-                            id,
-                            insurance,
-                            reason,
-                            date,
-                            time,
-                            patient_id,
-                            doctor_id,
-                            status
-
-                        FROM reservations
-
-                        WHERE id = %s;
+                            r.id,
+                            r.insurance,
+                            r.reason,
+                            r.date,
+                            r.time,
+                            r.doctor_id,
+                            r.status,
+                            d.id,
+                            d.first_name,
+                            d.last_name
+                            
+                        FROM reservations r
+                        INNER JOIN Doctors d ON r.Doctor_id = d.id
+                        WHERE r.id = %s;
                         """,
                         [
                             reservation_id
                         ]
                     )
                     record = result.fetchone()
-                    return self.record_to_reservation_out(record)
+                    print("*********************")
+                    print(record)
+                    return self.record_to_reservation_dr_out(record)
         except Exception as e:
             print(e)
             raise HTTPException(status_code=404, detail="Could not get reservation")
+
+    def record_to_reservation_dr_out(self, record):
+        return ReservationDrOut(
+            id=record[0],
+            insurance=record[1],
+            reason=record[2],
+            date=record[3],
+            time=record[4],
+            doctor_id=record[5],
+            status=record[6],
+            first_name=record[8],
+            last_name=record[9],
+        )
 
     def record_to_reservation_out(self, record):
         return ReservationOut(
@@ -89,21 +106,33 @@ class ReservationRepository:
         )
 
 
-    def get_all_current_reservations(self) -> Union[Error, List[ReservationOut]]:
+    def get_all_current_reservations(self) -> Union[Error, List[ReservationDrOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, insurance, reason, date, time, patient_id, doctor_id, status
-                        FROM reservations
+                        SELECT
+                            r.id,
+                            r.insurance,
+                            r.reason,
+                            r.date,
+                            r.time,
+                            r.doctor_id,
+                            r.status,
+                            d.id,
+                            d.first_name,
+                            d.last_name
+                            
+                        FROM reservations r
+                        INNER JOIN Doctors d ON r.Doctor_id = d.id
                         WHERE status=%s
                         ORDER BY date;
                         """,
                         ["current"]
                     )
                     return [
-                        self.record_to_reservation_out(record)
+                        self.record_to_reservation_dr_out(record)
                         for record in result
                     ]
         except Exception as e:
@@ -112,28 +141,40 @@ class ReservationRepository:
 
 
 
-    def get_all_completed_reservations(self) -> Union[Error, List[ReservationOut]]:
+    def get_all_completed_reservations(self) -> Union[Error, List[ReservationDrOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, insurance, reason, date, time, patient_id, doctor_id, status
-                        FROM reservations
+                        SELECT
+                            r.id,
+                            r.insurance,
+                            r.reason,
+                            r.date,
+                            r.time,
+                            r.doctor_id,
+                            r.status,
+                            d.id,
+                            d.first_name,
+                            d.last_name
+                            
+                        FROM reservations r
+                        INNER JOIN Doctors d ON r.Doctor_id = d.id
                         WHERE status=%s
                         ORDER BY date;
                         """,
                         ["completed"]
                     )
                     return [
-                        self.record_to_reservation_out(record)
+                        self.record_to_reservation_dr_out(record)
                         for record in result
                     ]
         except Exception as e:
             print(e)
             raise HTTPException(status_code=404, detail="Could not get reservation")
 
-    def update_reservation(self, reservation_id: int, reservation: ReservationUpdate) -> Optional[ReservationOut]:
+    def update_reservation(self, reservation_id: int, reservation: ReservationUpdate) -> Optional[ReservationDrOut]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -160,10 +201,20 @@ class ReservationRepository:
                     result = db.execute(
                         """
                         SELECT
-                            id, insurance, reason, date, time, patient_id, doctor_id, status
-                        FROM reservations
-
-                        WHERE id = %s;
+                            r.id,
+                            r.insurance,
+                            r.reason,
+                            r.date,
+                            r.time,
+                            r.doctor_id,
+                            r.status,
+                            d.id,
+                            d.first_name,
+                            d.last_name
+                            
+                        FROM reservations r
+                        INNER JOIN Doctors d ON r.Doctor_id = d.id
+                        WHERE r.id = %s;
                         """,
                         [
                             reservation_id
@@ -171,7 +222,7 @@ class ReservationRepository:
                     )
                     record = result.fetchone()
                     print(record)
-                    return self.record_to_reservation_out(record)
+                    return self.record_to_reservation_dr_out(record)
         except Exception as e:
             print(e)
             raise HTTPException(status_code=404, detail="Could not update reservation")
