@@ -13,14 +13,20 @@ const ReservationDetail = () => {
     console.log(cancelReservationStatus)
 
     useEffect(() => {
-        if (completeReservationStatus.isSuccess) navigate('/reservations/history')
+        if (completeReservationStatus.isSuccess)
+        {navigate('/reservations')
+            window.location.reload()
+    }
         if (completeReservationStatus.isError) {
             setErrorMessage(completeReservationStatus.error.data.detail)
         }
     }, [completeReservationStatus, navigate])
 
     useEffect(() => {
-        if (cancelReservationStatus.isSuccess) navigate('/reservations/history')
+        if (cancelReservationStatus.isSuccess)
+        {navigate('/reservations')
+            window.location.reload()
+    }
         if (cancelReservationStatus.isError) {
             setErrorMessage(cancelReservationStatus.error.data.detail)
         }

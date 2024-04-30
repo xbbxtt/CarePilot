@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
+import AuthWrapper from './components/AuthWrapper'
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import ReservationForm from './components/ReservationForm'
@@ -42,23 +43,41 @@ const router = createBrowserRouter(
                 },
                 {
                     path: 'reservations/new',
-                    element: <ReservationForm />,
+                    element: (
+                        <AuthWrapper>
+                            <ReservationForm />
+                        </AuthWrapper>
+                    ),
                 },
                 {
                     path: 'reservations',
-                    element: <CurrentReservations />,
+                    element: (
+                        <AuthWrapper>
+                            <CurrentReservations />
+                        </AuthWrapper>
+                    ),
                 },
                 {
                     path: 'reservations/history',
-                    element: <PastReservations />,
+                    element: (
+                        <AuthWrapper>
+                            <PastReservations />
+                        </AuthWrapper>
+                    ),
                 },
                 {
                     path: 'reservations/:id',
-                    element: <ReservationDetail />,
+                    element: (
+                        <AuthWrapper>
+                            <ReservationDetail />
+                        </AuthWrapper>
+                    ),
                 },
                 {
                     path: 'reservations/:id/update',
-                    element: <ReservationUpdate />,
+                    element: <AuthWrapper>
+                        <ReservationUpdate />
+                        </AuthWrapper>,
                 },
             ],
         },

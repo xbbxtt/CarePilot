@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams, NavLink } from 'react-router-dom'
-import { useReservationUpdateMutation, useReservationDetailQuery, useAuthenticateQuery } from '../app/apiSlice'
+import { useReservationUpdateMutation, useReservationDetailQuery } from '../app/apiSlice'
 
 const ReservationUpdate = () => {
     const { id } = useParams()
-    const { data: user, isLoading } = useAuthenticateQuery()
-    const { data, error } = useReservationDetailQuery(id)
+    const { data, isLoading, error } = useReservationDetailQuery(id)
 
 
     const navigate = useNavigate()
@@ -29,11 +28,10 @@ const ReservationUpdate = () => {
     }, [data, setInsurance, setReason, setDate, setTime])
 
     useEffect(() => {
-        if (!isLoading && !user) navigate('/')
-    }, [user, isLoading, navigate])
-
-    useEffect(() => {
-        if (reservationUpdateStatus.isSuccess) navigate('/reservations')
+        if (reservationUpdateStatus.isSuccess)
+        {navigate('/reservations')
+            window.location.reload()
+    }
         if (reservationUpdateStatus.isError) {
             setErrorMessage(reservationUpdateStatus.error.data.detail)
         }

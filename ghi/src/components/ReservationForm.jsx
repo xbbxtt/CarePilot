@@ -16,7 +16,10 @@ const newReservation = () => {
     console.log(newReservationsStatus)
 
     useEffect(() => {
-        if (newReservationsStatus.isSuccess) navigate('/')
+        if (newReservationsStatus.isSuccess)
+        {navigate('/reservations')
+            window.location.reload()
+    }
         if (newReservationsStatus.isError) {
             setErrorMessage(newReservationsStatus.error.data.detail)
         }
