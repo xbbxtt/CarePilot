@@ -81,7 +81,7 @@ const Signup = () => {
                             Confirmed Password
                         </label>
                         <input
-                            type="text"
+                            type="password"
                             className="form-control"
                             id="Login__confirmed_password"
                             value={confirmed_password}

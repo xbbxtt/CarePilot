@@ -11,6 +11,8 @@ import CurrentReservations from './components/CurrentReservations'
 import PastReservations from './components/PastReservations'
 import ReservationDetail from './components/ReservationDetail'
 import ReservationUpdate from './components/ReservationUpdate'
+import UserUpdate from './components/UserUpdate'
+import UserDetail from './components/UserDetail'
 import Home from './components/Home'
 import App from './App'
 
@@ -75,9 +77,27 @@ const router = createBrowserRouter(
                 },
                 {
                     path: 'reservations/:id/update',
-                    element: <AuthWrapper>
-                        <ReservationUpdate />
-                        </AuthWrapper>,
+                    element: (
+                        <AuthWrapper>
+                            <ReservationUpdate />
+                        </AuthWrapper>
+                    ),
+                },
+                {
+                    path: 'patients/:id/update',
+                    element: (
+                        <AuthWrapper>
+                            <UserUpdate />
+                        </AuthWrapper>
+                    ),
+                },
+                {
+                    path: 'patients/:id',
+                    element: (
+                        <AuthWrapper>
+                            <UserDetail />
+                        </AuthWrapper>
+                    ),
                 },
             ],
         },
