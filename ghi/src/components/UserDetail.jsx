@@ -39,7 +39,7 @@ const UserDetail = () => {
                                     <button
                                         onClick={() =>
                                             navigate(
-                                                `/patients/${data.id}/update`
+                                                `/patients/update`
                                             )
                                         }
                                     >

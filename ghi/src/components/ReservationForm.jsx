@@ -13,7 +13,6 @@ const newReservation = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [newReservation, newReservationsStatus] = useNewReservationMutation()
 
-    console.log(newReservationsStatus)
 
     useEffect(() => {
         if (newReservationsStatus.isSuccess)

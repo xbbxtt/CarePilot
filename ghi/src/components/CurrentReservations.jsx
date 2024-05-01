@@ -1,9 +1,10 @@
-import { useCurrentReservationsQuery } from '../app/apiSlice';
+import { useCurrentReservationsQuery, useAuthenticateQuery} from '../app/apiSlice';
 import { NavLink } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
 import ReservationDetail from './ReservationDetail'
 
 const CurrentReservations = () => {
+    const { data:user, isLoading:isLoadingUser} = useAuthenticateQuery();
     const { data, isLoading, error } = useCurrentReservationsQuery();
 
     if (isLoading) return <>Loading...</>

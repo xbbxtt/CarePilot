@@ -14,7 +14,14 @@ from queries.user_queries import (
 )
 
 from utils.exceptions import UserDatabaseException
-from models.users import UserRequest, UserResponse, UserIn, UserResponseDetail
+from models.users import (
+    UserRequest,
+    UserResponse,
+    UserIn,
+    UserResponseDetail,
+    UserOut,
+    UserUpdate
+)
 
 from utils.authentication import (
     try_get_jwt_user_data,
@@ -137,9 +144,11 @@ async def authenticate(
     This can be used in your frontend to determine if a user
     is logged in or not
     """
+
     if user is None:
         return user
     user = queries.get_by_username(user.username)
+
     return user
 
 
@@ -163,3 +172,18 @@ async def signout(
     # All that has to happen is the cookie header must come back
     # Which causes the browser to delete the cookie
     return
+
+
+@router.put("/update", response_model=UserOut)
+def update_user(
+    user: UserUpdate,
+    repo: UserQueries = Depends(),
+    user_response: UserResponse = Depends(try_get_jwt_user_data),
+) -> UserOut:
+    if user_response is None:
+        raise HTTPException(status_code=401, detail='You must login!')
+    if user.password != user.confirmed_password:
+        raise HTTPException(status_code=422, detail="Passwords do not match")
+    hashed_password = hash_password(user.password)
+    current_user = repo.get_by_username(user_response.username)
+    return repo.update_user(current_user.id, user, hashed_password)

@@ -54,9 +54,7 @@ const router = createBrowserRouter(
                 {
                     path: 'reservations',
                     element: (
-                        <AuthWrapper>
                             <CurrentReservations />
-                        </AuthWrapper>
                     ),
                 },
                 {
@@ -84,7 +82,7 @@ const router = createBrowserRouter(
                     ),
                 },
                 {
-                    path: 'patients/:id/update',
+                    path: 'patients/update',
                     element: (
                         <AuthWrapper>
                             <UserUpdate />

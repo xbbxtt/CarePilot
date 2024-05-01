@@ -13,8 +13,7 @@ const UserUpdate = () => {
     const { data, isLoading, error } = useAuthenticateQuery()
     const [userUpdate, userUpdateStatus] = useUserUpdateMutation()
 
-    console.log(data)
-    console.log(userUpdateStatus)
+    console.log(data, userUpdateStatus)
 
     useEffect(() => {
         if (data) {
@@ -34,13 +33,15 @@ const UserUpdate = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        userUpdate({
-            body: {
+        console.log({
             password,
             confirmed_password,
             phone,
-            },
-            user_id: data.id
+        }, userUpdateStatus)
+        userUpdate({
+            password,
+            confirmed_password,
+            phone,
         })
     }
 

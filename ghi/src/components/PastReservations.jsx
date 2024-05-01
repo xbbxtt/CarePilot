@@ -6,8 +6,7 @@ const PastReservations = () => {
     const { data, isLoading, error } = usePastReservationsQuery();
 
     if (isLoading) return <>Loading...</>
-    console.log(error)
-    console.log(data)
+
     if(error == undefined){
         return (
         <>

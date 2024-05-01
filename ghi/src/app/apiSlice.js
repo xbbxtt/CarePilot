@@ -46,7 +46,7 @@ export const carePilotApi = createApi({
                 body,
                 credentials: 'include',
             }),
-            invalidatesTags: ['Users'],
+            // invalidatesTags: ['Users'],
         }),
         currentReservations: builder.query({
             query: () => ({
@@ -54,7 +54,7 @@ export const carePilotApi = createApi({
                 method: 'GET',
                 credentials: 'include',
             }),
-            invalidatesTags: ['Users'],
+            // invalidatesTags: ['Users'],
         }),
         pastReservations: builder.query({
             query: () => ({
@@ -62,7 +62,7 @@ export const carePilotApi = createApi({
                 method: 'GET',
                 credentials: 'include',
             }),
-            invalidatesTags: ['Users'],
+            // invalidatesTags: ['Users'],
         }),
         reservationDetail: builder.query({
             query: (reservation_id) => ({
@@ -71,7 +71,7 @@ export const carePilotApi = createApi({
                 reservation_id,
                 credentials: 'include',
             }),
-            invalidatesTags: ['Users'],
+            // invalidatesTags: ['Users'],
         }),
         reservationUpdate: builder.mutation({
             query: ({ reservation_id, body }) => ({
@@ -80,7 +80,7 @@ export const carePilotApi = createApi({
                 body,
                 credentials: 'include',
             }),
-            invalidatesTags: ['Users'],
+            // invalidatesTags: ['Users'],
         }),
         reservationComplete: builder.mutation({
             query: (reservation_id) => ({
@@ -89,7 +89,7 @@ export const carePilotApi = createApi({
                 reservation_id,
                 credentials: 'include',
             }),
-            invalidatesTags: ['Users'],
+            // invalidatesTags: ['Users'],
         }),
         reservationCancelled: builder.mutation({
             query: (reservation_id) => ({
@@ -98,11 +98,11 @@ export const carePilotApi = createApi({
                 reservation_id,
                 credentials: 'include',
             }),
-            invalidatesTags: ['Users'],
+            // invalidatesTags: ['Users'],
         }),
         userUpdate: builder.mutation({
-            query: ({ user_id, body }) => ({
-                url: `/api/patients/${user_id}`,
+            query: (body) => ({
+                url: `/api/auth/update`,
                 method: 'PUT',
                 body,
                 credentials: 'include',

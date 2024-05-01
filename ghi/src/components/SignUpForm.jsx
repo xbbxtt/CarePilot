@@ -16,7 +16,6 @@ const Signup = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [signup, signupStatus] = useSignupMutation()
 
-    console.log(signupStatus)
 
     useEffect(() => {
         if (signupStatus.isSuccess) navigate('/reservations')
