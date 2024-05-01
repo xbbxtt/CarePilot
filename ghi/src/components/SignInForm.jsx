@@ -13,7 +13,7 @@ const Login = () => {
     console.log(signinStatus)
 
     useEffect(() => {
-        if (signinStatus.isSuccess) navigate('/')
+        if (signinStatus.isSuccess) navigate('/reservations')
         if (signinStatus.isError) {
             setErrorMessage(signinStatus.error.data.detail)
         }

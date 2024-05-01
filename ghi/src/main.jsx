@@ -92,7 +92,7 @@ const router = createBrowserRouter(
                     ),
                 },
                 {
-                    path: 'patients/:id',
+                    path: 'patients/me',
                     element: (
                         <AuthWrapper>
                             <UserDetail />

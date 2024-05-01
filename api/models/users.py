@@ -52,3 +52,22 @@ class UserWithPw(BaseModel):
     id: int
     username: str
     password: str
+    first_name: str
+    last_name: str
+    date_of_birth: date
+    gender: str
+    phone: str
+
+
+class UserResponseDetail(BaseModel):
+    """
+    Represents a user, with the password not included
+    """
+
+    id: int
+    username: str
+    first_name: str
+    last_name: str
+    date_of_birth: date
+    gender: str
+    phone: str

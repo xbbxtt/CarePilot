@@ -1,11 +1,9 @@
-import { useUserDetailQuery } from '../app/apiSlice'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import { useAuthenticateQuery } from '../app/apiSlice'
+import { NavLink, useNavigate } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
-import { useEffect } from 'react'
 
 const UserDetail = () => {
-    const { id } = useParams()
-    const { data, isLoading, error } = useUserDetailQuery(id)
+    const { data, isLoading, error } = useAuthenticateQuery()
     const navigate = useNavigate()
 
 

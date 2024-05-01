@@ -19,7 +19,7 @@ const Signup = () => {
     console.log(signupStatus)
 
     useEffect(() => {
-        if (signupStatus.isSuccess) navigate('/')
+        if (signupStatus.isSuccess) navigate('/reservations')
         if (signupStatus.isError) {
             setErrorMessage(signupStatus.error.data.detail)
         }

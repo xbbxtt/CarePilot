@@ -7,6 +7,7 @@ const AuthWrapper = ({children}) => {
     const { data: user, isLoading: isLoadingUser } = useAuthenticateQuery()
     const navigate = useNavigate()
 
+    console.log(user)
 
     useEffect(() => {
         if (!user && !isLoadingUser) {

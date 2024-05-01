@@ -109,15 +109,6 @@ export const carePilotApi = createApi({
             }),
             invalidatesTags: ['Users'],
         }),
-        userDetail: builder.query({
-            query: (user_id) => ({
-                url: `/api/patients/${user_id}`,
-                method: 'GET',
-                user_id,
-                credentials: 'include',
-            }),
-            invalidatesTags: ['Users'],
-        }),
     }),
 })
 
@@ -133,6 +124,5 @@ export const {
     useReservationUpdateMutation,
     useReservationCompleteMutation,
     useReservationCancelledMutation,
-    useUserUpdateMutation,
-    useUserDetailQuery,
+    useUserUpdateMutation
 } = carePilotApi

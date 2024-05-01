@@ -1,7 +1,7 @@
 // @ts-check
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useUserUpdateMutation, useUserDetailQuery } from '../app/apiSlice'
+import { useNavigate } from 'react-router-dom'
+import { useUserUpdateMutation, useAuthenticateQuery } from '../app/apiSlice'
 
 const UserUpdate = () => {
     const navigate = useNavigate()
@@ -9,8 +9,8 @@ const UserUpdate = () => {
     const [confirmed_password, setConfirmedPassword] = useState('')
     const [phone, setPhone] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-    const { id } = useParams()
-    const { data, isLoading, error } = useUserDetailQuery(id)
+
+    const { data, isLoading, error } = useAuthenticateQuery()
     const [userUpdate, userUpdateStatus] = useUserUpdateMutation()
 
     console.log(data)
@@ -24,7 +24,7 @@ const UserUpdate = () => {
 
     useEffect(() => {
         if (userUpdateStatus.isSuccess)
-        {navigate(`/patients/${id}`)
+        {navigate(`/patients/me`)
             window.location.reload()
     }
         if (userUpdateStatus.isError) {
@@ -40,7 +40,7 @@ const UserUpdate = () => {
             confirmed_password,
             phone,
             },
-            user_id: id
+            user_id: data.id
         })
     }
 
