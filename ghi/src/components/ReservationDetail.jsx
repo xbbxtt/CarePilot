@@ -10,7 +10,6 @@ const ReservationDetail = () => {
     const [completeReservation, completeReservationStatus] = useReservationCompleteMutation()
     const [cancelReservation, cancelReservationStatus] = useReservationCancelledMutation()
 
-    console.log(data)
 
     useEffect(() => {
         if (completeReservationStatus.isSuccess)

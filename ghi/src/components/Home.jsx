@@ -4,7 +4,9 @@ import {useNewReservationMutation, useAuthenticateQuery} from "../app/apiSlice"
 import '../style.css'
 
 
-const Home = () => (
+const Home = () => {
+    const {data: user} = useAuthenticateQuery()
+    return (
     <div>
         <section
             className="bg-dark text-light p-5 text-left text-sm-smart"
@@ -21,12 +23,22 @@ const Home = () => (
                             took a galley of type and scrambled it to make a
                             type specimen book.
                         </p>
+                        {!user && (
                         <NavLink
                             to={'/signin'}
                             className={'btn btn-primary btn-lg'}
                         >
                             Make a Reservation
                         </NavLink>
+                        )}
+                        {user && (
+                        <NavLink
+                            to={'/reservations/new'}
+                            className={'btn btn-primary btn-lg'}
+                        >
+                            Make a Reservation
+                        </NavLink>
+                        )}
                     </div>
                     <a href="#"></a>
                     <img
@@ -38,6 +50,7 @@ const Home = () => (
             </div>
         </section>
     </div>
-)
+    )
+}
 
 export default Home

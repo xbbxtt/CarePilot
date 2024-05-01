@@ -38,7 +38,7 @@ const ReservationUpdate = () => {
     }, [reservationUpdateStatus, navigate])
 
     if (isLoading) return <>Loading...</>
-    console.log(data)
+
 
     const handleSubmit = (e) => {
         e.preventDefault()

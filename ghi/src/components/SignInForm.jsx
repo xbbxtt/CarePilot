@@ -10,8 +10,6 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [signin, signinStatus] = useSigninMutation()
 
-    console.log(signinStatus)
-
     useEffect(() => {
         if (signinStatus.isSuccess) navigate('/reservations')
         if (signinStatus.isError) {

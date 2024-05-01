@@ -112,50 +112,6 @@ class UserQueries:
             )
         return user
 
-class UserRepository:
-    def user_in_to_out(self, id: int, user: UserIn):
-        old_data = user.dict()
-        return UserOut(id=id, **old_data)
-
-    def get_user(self, user_id: int) -> Optional[UserOut]:
-        try:
-
-            with pool.connection() as conn:
-
-                with conn.cursor() as db:
-
-                    result = db.execute(
-                        """
-                        SELECT
-                            id, first_name, last_name, username, password, date_of_birth, gender, phone
-                        FROM users
-
-                        WHERE id = %s;
-                        """,
-                        [
-                            user_id
-                        ]
-                    )
-                    record = result.fetchone()
-                    if record is None:
-                        return None
-
-                    return self.record_to_user_out(record)
-        except Exception:
-            raise HTTPException(status_code=404, detail="Could not get user")
-
-    def record_to_user_out(self, record):
-        return UserOut(
-            id=record[0],
-            first_name=record[1],
-            last_name=record[2],
-            username=record[3],
-            password=record[4],
-            confirmed_password=record[4],
-            date_of_birth=record[5],
-            gender=record[6],
-            phone=record[7],
-        )
 
     def update_user(self, user_id: int, user: UserUpdate, hashed_password: str) -> Optional[UserOut]:
         try:
@@ -194,3 +150,17 @@ class UserRepository:
         except Exception as e:
             print(e)
             raise HTTPException(status_code=404, detail="Could not get user")
+
+
+    def record_to_user_out(self, record):
+        return UserOut(
+            id=record[0],
+            first_name=record[1],
+            last_name=record[2],
+            username=record[3],
+            password=record[4],
+            confirmed_password=record[4],
+            date_of_birth=record[5],
+            gender=record[6],
+            phone=record[7],
+        )
