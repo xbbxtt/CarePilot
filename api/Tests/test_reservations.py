@@ -33,6 +33,20 @@ class FakeReservationRepository:
 
         return sample_reservations
 
+    def get_reservation(self, reservation_id: int):
+        sample_reservations = {
+            "insurance": "blue",
+            "reason": "test",
+            "date": "2024-05-02",
+            "time": "18:08:55.894Z",
+            "doctor_id": 2,
+            "id": reservation_id,
+            "status": "current",
+            "first_name": "string",
+            "last_name": "string"
+        }
+        return sample_reservations
+
 def test_create():
 
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
@@ -61,4 +75,28 @@ def test_create():
         "doctor_id": 2,
         "status": "current"
 
+    }
+
+
+def test_get_reservation():
+
+    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+
+
+    res = client.get('/api/reservations/1')
+
+    data = res.json()
+
+    assert res.status_code == 200
+    assert data == {
+        "id": 1,
+        "insurance": "blue",
+        "reason": "test",
+        "date": "2024-05-02",
+        "time": "18:08:55.894000Z",
+        "doctor_id": 2,
+        "status": "current",
+        "first_name": "string",
+        "last_name": "string"
     }
