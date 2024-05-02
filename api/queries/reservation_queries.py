@@ -36,6 +36,7 @@ class ReservationRepository:
                         ]
                     )
                     id = result.fetchone()[0]
+
                     return self.reservation_in_to_out(id, reservation, default_status)
         except Exception as e:
             print(e)
@@ -64,7 +65,7 @@ class ReservationRepository:
                             d.id,
                             d.first_name,
                             d.last_name
-                            
+
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
                         WHERE r.id = %s;
@@ -123,7 +124,7 @@ class ReservationRepository:
                             d.id,
                             d.first_name,
                             d.last_name
-                            
+
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
                         WHERE status=%s
@@ -158,7 +159,7 @@ class ReservationRepository:
                             d.id,
                             d.first_name,
                             d.last_name
-                            
+
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
                         WHERE status=%s
@@ -211,7 +212,7 @@ class ReservationRepository:
                             d.id,
                             d.first_name,
                             d.last_name
-                            
+
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
                         WHERE r.id = %s;
