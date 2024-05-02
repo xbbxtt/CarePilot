@@ -7,6 +7,7 @@ from utils.authentication import try_get_jwt_user_data
 
 client = TestClient(app)
 
+
 def fake_try_get_jwt_user_data():
     return UserResponse(
         id=157,
@@ -17,6 +18,7 @@ def fake_try_get_jwt_user_data():
         gender="female",
         phone="9145555555"
     )
+
 
 class FakeReservationRepository:
     def create(self, reservation: ReservationIn, user_id:int):
@@ -83,12 +85,49 @@ class FakeReservationRepository:
         }]
         return sample_reservations
 
+    def get_all_completed_reservations(self):
+        sample_reservations = [
+            {
+                "insurance": "blue",
+                "reason": "test",
+                "date": "2024-05-02",
+                "time": "18:08:55.894000Z",
+                "doctor_id": 2,
+                "id": 1,
+                "status": "current",
+                "first_name": "string",
+                "last_name": "string"
+            },
+            {
+                "insurance": "red",
+                "reason": "test",
+                "date": "2024-05-02",
+                "time": "18:08:55.894000Z",
+                "doctor_id": 2,
+                "id": 2,
+                "status": "current",
+                "first_name": "string",
+                "last_name": "string"
+            },
+            {
+                "insurance": "white",
+                "reason": "test",
+                "date": "2024-05-02",
+                "time": "18:08:55.894000Z",
+                "doctor_id": 4,
+                "id": 3,
+                "status": "current",
+                "first_name": "string",
+                "last_name": "string"
+            }
+        ]
+        return sample_reservations
+
 
 def test_create():
 
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
     app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
 
     body = {
         "insurance": "fidelis",
@@ -120,9 +159,7 @@ def test_get_reservation():
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
     app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
 
-
     res = client.get('/api/reservations/1')
-
     data = res.json()
 
     assert res.status_code == 200
@@ -143,7 +180,6 @@ def test_get_all_current_reservations():
 
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
     app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
 
     res = client.get('/api/reservations')
 
@@ -183,4 +219,52 @@ def test_get_all_current_reservations():
             "first_name": "string",
             "last_name": "string"
         }]
+    assert len(data) == 3
+
+
+def test_get_all_completed_reservations():
+
+    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+
+    res = client.get('/api/history/reservations')
+
+    data = res.json()
+
+    assert res.status_code == 200
+    assert data == [
+            {
+                "insurance": "blue",
+                "reason": "test",
+                "date": "2024-05-02",
+                "time": "18:08:55.894000Z",
+                "doctor_id": 2,
+                "id": 1,
+                "status": "current",
+                "first_name": "string",
+                "last_name": "string"
+            },
+            {
+                "insurance": "red",
+                "reason": "test",
+                "date": "2024-05-02",
+                "time": "18:08:55.894000Z",
+                "doctor_id": 2,
+                "id": 2,
+                "status": "current",
+                "first_name": "string",
+                "last_name": "string"
+            },
+            {
+                "insurance": "white",
+                "reason": "test",
+                "date": "2024-05-02",
+                "time": "18:08:55.894000Z",
+                "doctor_id": 4,
+                "id": 3,
+                "status": "current",
+                "first_name": "string",
+                "last_name": "string"
+            }
+        ]
     assert len(data) == 3
