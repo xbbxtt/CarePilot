@@ -47,6 +47,43 @@ class FakeReservationRepository:
         }
         return sample_reservations
 
+    def get_all_current_reservations(self):
+        sample_reservations = [{
+            "insurance": "blue",
+            "reason": "test",
+            "date": "2024-05-02",
+            "time": "18:08:55.894Z",
+            "doctor_id": 2,
+            "id": 1,
+            "status": "current",
+            "first_name": "string",
+            "last_name": "string"
+        },
+        {
+            "insurance": "red",
+            "reason": "test",
+            "date": "2024-05-02",
+            "time": "18:08:55.894Z",
+            "doctor_id": 2,
+            "id": 2,
+            "status": "current",
+            "first_name": "string",
+            "last_name": "string"
+        },
+        {
+            "insurance": "white",
+            "reason": "test",
+            "date": "2024-05-02",
+            "time": "18:08:55.894Z",
+            "doctor_id": 4,
+            "id": 3,
+            "status": "current",
+            "first_name": "string",
+            "last_name": "string"
+        }]
+        return sample_reservations
+
+
 def test_create():
 
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
@@ -100,3 +137,50 @@ def test_get_reservation():
         "first_name": "string",
         "last_name": "string"
     }
+
+
+def test_get_all_current_reservations():
+
+    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+
+
+    res = client.get('/api/reservations')
+
+    data = res.json()
+
+    assert res.status_code == 200
+    assert data == [{
+            "insurance": "blue",
+            "reason": "test",
+            "date": "2024-05-02",
+            "time": "18:08:55.894000Z",
+            "doctor_id": 2,
+            "id": 1,
+            "status": "current",
+            "first_name": "string",
+            "last_name": "string"
+        },
+        {
+            "insurance": "red",
+            "reason": "test",
+            "date": "2024-05-02",
+            "time": "18:08:55.894000Z",
+            "doctor_id": 2,
+            "id": 2,
+            "status": "current",
+            "first_name": "string",
+            "last_name": "string"
+        },
+        {
+            "insurance": "white",
+            "reason": "test",
+            "date": "2024-05-02",
+            "time": "18:08:55.894000Z",
+            "doctor_id": 4,
+            "id": 3,
+            "status": "current",
+            "first_name": "string",
+            "last_name": "string"
+        }]
+    assert len(data) == 3
