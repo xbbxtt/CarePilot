@@ -1,0 +1,64 @@
+from main import app
+from fastapi.testclient import TestClient
+from queries.reservation_queries import ReservationRepository
+from models.reservations import ReservationIn, ReservationDrOut, ReservationOut, ReservationUpdate
+from models.users import UserResponse, UserResponseDetail
+from utils.authentication import try_get_jwt_user_data
+
+client = TestClient(app)
+
+def fake_try_get_jwt_user_data():
+    return UserResponse(
+        id=157,
+        username="fake_user",
+        first_name="gen",
+        last_name="munoz",
+        date_of_birth="2024-05-14",
+        gender="female",
+        phone="9145555555"
+    )
+
+class FakeReservationRepository:
+    def create(self, reservation: ReservationIn, user_id:int):
+        sample_reservations = {
+
+            "id": 157,
+            "insurance": reservation.insurance,
+            "reason": reservation.reason,
+            "date": reservation.date,
+            "time": reservation.time,
+            "doctor_id": reservation.doctor_id,
+            "status": "current"
+    }
+
+        return sample_reservations
+
+def test_create():
+
+    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+
+
+    body = {
+        "insurance": "fidelis",
+        "reason": "arm pain",
+        "date": "2024-05-01",
+        "time": "20:24:47.000Z",
+        "doctor_id": 2
+
+    }
+    res = client.post('/api/reservations', json=body)
+
+    data = res.json()
+
+    assert res.status_code == 200
+    assert data == {
+        "id": 157,
+        "insurance": "fidelis",
+        "reason": "arm pain",
+        "date": "2024-05-01",
+        "time": "20:24:47Z",
+        "doctor_id": 2,
+        "status": "current"
+
+    }
