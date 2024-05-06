@@ -109,6 +109,12 @@ export const carePilotApi = createApi({
             }),
             invalidatesTags: ['Users'],
         }),
+        doctors: builder.query({
+            query: () => ({
+                url: '/api/doctors',
+                method: 'GET',
+            }),
+        }),
     }),
 })
 
@@ -124,5 +130,6 @@ export const {
     useReservationUpdateMutation,
     useReservationCompleteMutation,
     useReservationCancelledMutation,
-    useUserUpdateMutation
+    useUserUpdateMutation,
+    useDoctorsQuery
 } = carePilotApi

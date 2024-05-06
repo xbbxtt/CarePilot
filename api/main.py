@@ -3,7 +3,7 @@ Entry point for the FastAPI Application
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import auth_router, reservations
+from routers import auth_router, reservations, doctors
 import os
 
 
@@ -19,6 +19,8 @@ app.add_middleware(
 
 app.include_router(auth_router.router)
 app.include_router(reservations.router, tags=["Reservations"])
+app.include_router(doctors.router, tags=["Doctors"])
+
 
 @app.get("/api/launch-details")
 def launch_details():
