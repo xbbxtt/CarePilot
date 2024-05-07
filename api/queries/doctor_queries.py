@@ -18,15 +18,16 @@ class DoctorRepository:
                     result = db.execute(
                         """
                         INSERT INTO doctors
-                            (first_name, last_name, specialty)
+                            (first_name, last_name, specialty, image)
                         VALUES
-                            (%s, %s, %s)
+                            (%s, %s, %s, %s)
                         RETURNING id;
                         """,
                         [
                             doctor.first_name,
                             doctor.last_name,
                             doctor.specialty,
+                            doctor.image,
                         ]
                     )
                     id = result.fetchone()[0]
@@ -68,6 +69,7 @@ class DoctorRepository:
             first_name=record[1],
             last_name=record[2],
             specialty=record[3],
+            image=record[4],
         )
 
     def get_all_doctors(self) -> Union[Error, List[DoctorsOut]]:
