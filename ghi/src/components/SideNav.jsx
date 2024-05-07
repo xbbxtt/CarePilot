@@ -29,7 +29,7 @@ const SideNav = () => {
                         <div className="dropdown">
                             <button className="btn-side btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="lni lni-clipboard"></i>&nbsp;
+                                <i className="lni lni-clipboard"></i>&nbsp;
                                 Reservations
                                 </button>
 
