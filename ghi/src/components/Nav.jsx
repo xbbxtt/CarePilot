@@ -1,4 +1,4 @@
-import {Link, NavLink, useNavigate } from 'react-router-dom'
+import {Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import {useSignoutMutation, useAuthenticateQuery, useSigninMutation} from "../app/apiSlice"
 import {useEffect} from 'react'
 
@@ -7,6 +7,8 @@ const Nav = () => {
     const {data: user} = useAuthenticateQuery()
     const [ signout, signoutStatus] = useSignoutMutation()
     const [ signin, signinStatus] = useSigninMutation()
+    const location = useLocation()
+    const home = location.pathname === '/'
 
 
     useEffect(() => {
@@ -18,96 +20,96 @@ const Nav = () => {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3">
-            <div className="container">
-                <Link to={'/'} className="navbar-brand">
-                    CarePilot
-                </Link>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <NavLink to={'/'} className={'nav-link'}>
-                                Home
-                            </NavLink>
-                        </li>
-                        {!user && (
-                            <li className="nav-item">
-                                <NavLink to={'/signin'} className={'nav-link'}>
-                                    Login
-                                </NavLink>
-                            </li>
-                        )}
-                        {!user && (
-                            <li className="nav-item">
-                                <NavLink to={'/signup'} className={'nav-link'}>
-                                    Sign Up
-                                </NavLink>
-                            </li>
-                        )}
-                        {user && (
-                            <li className="nav-item">
-                                <NavLink
-                                    to={'/reservations/new'}
-                                    className={'nav-link'}
-                                >
-                                    New Reservation
-                                </NavLink>
-                            </li>
-                        )}
-                        {user && (
-                            <li className="nav-item">
-                                <NavLink
-                                    to={'/reservations'}
-                                    className={'nav-link'}
-                                >
-                                    Current Reservations
-                                </NavLink>
-                            </li>
-                        )}
+        <div className>
+            <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+                <div className="container">
 
-                        {user && (
+                    <Link to={'/'} className="navbar-brand">
+                        <img src="https://imgur.com/sGRwUE2.jpg" alt="CarePilot Logo" className="navbar-logo" />
+                        CarePilot
+                    </Link>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink
-                                    to={'/reservations/history'}
-                                    className={'nav-link'}
-                                >
-                                    Reservation History
+                                <NavLink to={'/'} className={'nav-link'}>
+                                    Home
                                 </NavLink>
                             </li>
-                        )}
+                            {!user && (
+                                <li className="nav-item">
+                                    <NavLink to={'/signin'} className={'nav-link'}>
+                                        Login
+                                    </NavLink>
+                                </li>
+                            )}
+                            {!user && (
+                                <li className="nav-item">
+                                    <NavLink to={'/signup'} className={'nav-link'}>
+                                        Sign Up
+                                    </NavLink>
+                                </li>
+                            )}
+                            {user && home &&(
+                                <li className="nav-item">
+                                    <NavLink
+                                        to={'/reservations/'}
+                                        className={'nav-link'}
+                                    >
+                                        Reservations
+                                    </NavLink>
+                                </li>
+                            )}
+
+                        </ul>
                         {user && (
-                            <li className="nav-item">
-                                <NavLink
-                                    to={`/patients/me`}
-                                    className={'nav-link'}
-                                >
-                                    Patient Information
-                                </NavLink>
-                            </li>
+                            <button
+                                className="btn btn-outline-danger"
+                                onClick={onSignoutClick}
+                            >
+                                Logout
+                            </button>
                         )}
-                    </ul>
-                    {user && (
-                        <button
-                            className="btn btn-outline-danger"
-                            onClick={onSignoutClick}
-                        >
-                            Logout
-                        </button>
-                    )}
+                    </div>
                 </div>
+            </nav>
+            {/* <div class="container-fluid h-100">
+            <div class="row h-100">
+                <div class="col-2" id="navbarNav">
+                    <h4>Sidebar</h4>
+
+                     <NavLink to={'/signin'} className={'nav-link'}>
+                                    Account
+                                </NavLink>
+                    <br/>
+                    <br/>
+                    <NavLink to={'/logout'} className={'nav-link'}>
+                                    Reservation
+                                </NavLink>
+                    <br/>
+                    <br/>
+                     <NavLink to={'reservations/history'} className={'nav-link'}>
+                                    History
+                                </NavLink>
+                    <br/>
+                    <br/>
+
+                </div>
+
+
             </div>
-        </nav>
+        </div> */}
+        </div>
     )
 }
 

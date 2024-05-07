@@ -1,12 +1,14 @@
 // This makes VSCode check types as if you are using TypeScript
 //@ts-check
 import { useState, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import ErrorNotification from './components/ErrorNotification'
 
 import Nav from "./components/Nav"
+import SideNav from "./components/SideNav"
 import './App.css'
+import { useAuthenticateQuery } from './app/apiSlice'
 
 // When using environment variables, you should do a check to see if
 // they are defined or not and throw an appropriate error message
@@ -24,9 +26,13 @@ if (!API_HOST) {
  * @returns {React.ReactNode}
  */
 function App() {
+    const location = useLocation()
+    const home = location.pathname === '/'
+    const {data: user} = useAuthenticateQuery()
     return (
         <div className="App">
             <Nav/>
+
             <header className="App-header">{/* <Nav /> */}</header>
             <Outlet/>
         </div>
