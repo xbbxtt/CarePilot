@@ -37,10 +37,14 @@ const PastReservations = () => {
                                 </thead>
                                 <tbody>
                                 {data.map(reservation => {
+                                    const currentDate = new Date(reservation.date)
+                                    const date = currentDate.toLocaleDateString()
+                                    const currentTime = new Date(reservation.date+"T"+reservation.time)
+                                    const time = currentTime.toLocaleTimeString()
                                     return (
                                         <tr key={reservation.id}>
-                                            <td>{reservation.date}</td>
-                                            <td>{reservation.time}</td>
+                                            <td>{date}</td>
+                                            <td>{time}</td>
                                             <td>
                                                 {reservation.first_name} {reservation.last_name}
                                             </td>
