@@ -1,4 +1,4 @@
-import {Link, NavLink, useNavigate} from 'react-router-dom'
+ import {Link, NavLink, useNavigate} from 'react-router-dom'
 import {useEffect} from 'react'
 import {useNewReservationMutation, useAuthenticateQuery} from "../app/apiSlice"
 import '../style.css'
@@ -8,47 +8,35 @@ const Home = () => {
     const {data: user} = useAuthenticateQuery()
     return (
     <div>
-        <section
-            className="bg-dark text-light p-5 text-left text-sm-smart"
-            id="home"
-        >
-            <div className="container py-5">
-                <div className="d-sm-flex align-item-center justify-content-between py-5">
-                    <div>
-                        <h1 className="virtual-care-title">Virtual Care</h1>
-                        <h3 className="my-4">We bring the doctor to you!</h3>
-                        <p className="lead my-4">
-                            Lorem Ipsum has been the industry's standard dummy
-                            text ever since the 1500s, when an unknown printer
-                            took a galley of type and scrambled it to make a
-                            type specimen book.
-                        </p>
-                        {!user && (
-                        <NavLink
-                            to={'/signin'}
-                            className={'btn btn-primary btn-lg'}
-                        >
-                            Make a Reservation
-                        </NavLink>
-                        )}
-                        {user && (
-                        <NavLink
-                            to={'/reservations/new'}
-                            className={'btn btn-primary btn-lg'}
-                        >
-                            Make a Reservation
-                        </NavLink>
-                        )}
-                    </div>
-                    <a href="#"></a>
-                    <img
-                        src="https://imgur.com/btoIi1Z.jpg"
-                        className="img-fluid rounded"
-                        width="700"
-                    ></img>
-                </div>
-            </div>
-        </section>
+        <header class="header">
+        <div class="content">
+          <h1><span>High Quality Care</span><br />Anytime, Anywhere </h1>
+          <p>
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a
+            type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a
+            type specimen book.
+          </p>
+          {!user && (
+          <Link to={'/signin'} className="btn">
+            Make A Reservation
+          </Link>
+          )}
+          {user && (
+          <Link to={'/reservations/new'} className="btn">
+            Make A Reservation
+          </Link>
+          )}
+        </div>
+        <div class="image">
+          <img src="https://imgur.com/kDjQvVv.jpg" alt="header image" className="home-image" />
+
+          </div>
+
+      </header>
+
+
     </div>
     )
 }

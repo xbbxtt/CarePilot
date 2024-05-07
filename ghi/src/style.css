@@ -1,3 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=DM+Serif+Display:ital@0;1&family=Monoton&family=Sevillana&display=swap');
 .virtual-care-title{
     color:rgb(109, 208, 241);
 }
+
+/* SideNav Bar */
+.col-2 {
+    background-color: rgba(33, 37, 41, 1);
+    /* margin-top: 4px; */
+    height: 48em;
+}
+
+.sidenav-font {
+    color: aliceblue;
+    font-weight: 400;
+    text-align: center;
+    font-size:large;
+
+}
+
+
+.dropdown-item-disabled {
+    color: aliceblue;
+    font-size: medium;
+    padding-left: 5px;
+    text-decoration: none;
+
+}
+
+.dropdown-item-disabled2 {
+    display: block;
+    color: aliceblue;
+    font-size: medium;
+    padding-left: 5px;
+    text-decoration: none;
+
+}
+
+.dropdown-item-disabled3 {
+    display: block;
+    color: aliceblue;
+    font-size: medium;
+    padding-left: 5px;
+    padding-right: 10px;
+    text-decoration: none;
+
+}
+
+
+.navbar-brand{
+    letter-spacing: 1px;
+    font-size:xx-large;
+    padding-left:0;
+    font-family: 'DM serif Display';
+
+}
+
+.navbar-logo{
+    width: 90px;
+    padding-right: 7px;
+    padding-bottom: 2px;
+}
+
+.container {
+    margin-left: 40px;
+
+}
+
+#navbarNav {
+ gap: 1rem;
+
+
+}
+
+.btn {
+  padding: 1rem 2rem;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  background-color: rgb(184, 58, 58);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: rgb(58, 143, 189);
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.header {
+  padding: 7rem 7rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5rem;
+  align-items: center;
+}
+
+.content h1 {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.content h1 span {
+  font-weight: 400;
+}
+
+.home-image {
+    width: 60rem;
+    position: relative;
+}
+
+/* special service */
