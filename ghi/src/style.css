@@ -22,7 +22,8 @@
 .dropdown-item-disabled {
     color: aliceblue;
     font-size: medium;
-    padding-left: 5px;
+    padding-left: 17px;
+    padding-top: 0px;
     text-decoration: none;
 
 }
@@ -31,7 +32,8 @@
     display: block;
     color: aliceblue;
     font-size: medium;
-    padding-left: 5px;
+    padding-left: 27px;
+    padding-top: 0px;
     text-decoration: none;
 
 }
@@ -40,8 +42,9 @@
     display: block;
     color: aliceblue;
     font-size: medium;
-    padding-left: 5px;
-    padding-right: 10px;
+    padding-left: 2px;
+    padding-right: 0px;
+    padding-top: 0px;
     text-decoration: none;
 
 }
@@ -115,4 +118,27 @@ body {
     position: relative;
 }
 
+.btn-side{
+  padding: 1rem 2rem;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  background-color: rgb(33, 37, 41, 1);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-side2{
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  border: none;
+  font-size: 0.5rem;
+  color: white;
+  background-color: #343a40;
+  border-radius: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 /* special service */

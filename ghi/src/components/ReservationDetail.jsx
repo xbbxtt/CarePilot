@@ -36,6 +36,10 @@ const ReservationDetail = () => {
     if (isLoading) return <>Loading...</>
 
     if (error == undefined) {
+        const currentDate = new Date(data.date)
+        const date = currentDate.toLocaleDateString()
+        const currentTime = new Date(data.date+"T"+data.time)
+        const time = currentTime.toLocaleTimeString()
         return (
             <div className="container-fluid h-100">
             <div className="row h-100">
@@ -68,8 +72,8 @@ const ReservationDetail = () => {
                                 </thead>
                                 <tbody>
                                     <tr key={data.id}>
-                                        <td>{data.date}</td>
-                                        <td>{data.time}</td>
+                                        <td>{date}</td>
+                                        <td>{time}</td>
                                         <td>
                                             {data.first_name} {data.last_name}
                                         </td>
