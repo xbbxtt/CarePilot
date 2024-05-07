@@ -5,6 +5,7 @@ class DoctorsIn(BaseModel):
     first_name: str
     last_name: str
     specialty: str
+    image: str
 
 
 class DoctorsOut(DoctorsIn):
@@ -12,3 +13,4 @@ class DoctorsOut(DoctorsIn):
     first_name: str
     last_name: str
     specialty: str
+    image: str
