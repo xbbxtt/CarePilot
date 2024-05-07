@@ -83,32 +83,6 @@ const Nav = () => {
                     </div>
                 </div>
             </nav>
-            {/* <div class="container-fluid h-100">
-            <div class="row h-100">
-                <div class="col-2" id="navbarNav">
-                    <h4>Sidebar</h4>
-
-                     <NavLink to={'/signin'} className={'nav-link'}>
-                                    Account
-                                </NavLink>
-                    <br/>
-                    <br/>
-                    <NavLink to={'/logout'} className={'nav-link'}>
-                                    Reservation
-                                </NavLink>
-                    <br/>
-                    <br/>
-                     <NavLink to={'reservations/history'} className={'nav-link'}>
-                                    History
-                                </NavLink>
-                    <br/>
-                    <br/>
-
-                </div>
-
-
-            </div>
-        </div> */}
         </div>
     )
 }
