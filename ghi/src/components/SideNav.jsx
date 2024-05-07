@@ -8,7 +8,7 @@ const SideNav = () => {
 
     return (
 
-        <div className="col-2" id="navbarNav">
+        <div className="col-2" id="navbarNav2">
 
                 <h4>Sidebar</h4>
             <div className="sidenav-font">
