@@ -1,7 +1,7 @@
 // @ts-check
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useNewReservationMutation } from '../app/apiSlice'
+import { useNewReservationMutation, useDoctorsQuery } from '../app/apiSlice'
 
 const newReservation = () => {
     const navigate = useNavigate()
@@ -12,6 +12,7 @@ const newReservation = () => {
     const [doctor_id, setDoctorId] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [newReservation, newReservationsStatus] = useNewReservationMutation()
+    const { data:doctors, isLoading} = useDoctorsQuery()
 
 
     useEffect(() => {
@@ -34,6 +35,8 @@ const newReservation = () => {
             doctor_id,
         })
     }
+
+    if (isLoading) return <>Loading...</>
 
     return (
         <div className="row">
@@ -101,7 +104,7 @@ const newReservation = () => {
                             onChange={(e) => setTime(e.target.value)}
                         />
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <label
                             htmlFor="newReservation_doctorId"
                             className="form-label"
@@ -115,6 +118,16 @@ const newReservation = () => {
                             value={doctor_id}
                             onChange={(e) => setDoctorId(e.target.value)}
                         />
+                    </div> */}
+                    <div className="mb-3">
+                        <select onChange={(e) => setDoctorId(e.target.value)} value={doctor_id} required name="doctor" id="doctor" className="form-select">
+                            <option value="">Choose a doctor</option>
+                            {doctors.map(doctor => {
+                            return (
+                                <option key={doctor.id} value={doctor.id}>{doctor.first_name} {doctor.last_name}</option>
+                            )
+                            })}
+                        </select>
                     </div>
                     <button type="submit" className="btn btn-success">
                         Submit
