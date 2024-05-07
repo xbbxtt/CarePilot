@@ -11,6 +11,9 @@ const UserDetail = () => {
     if (isLoading) return <>Loading...</>
 
     if (error == undefined) {
+        const currentDate = new Date(data.date_of_birth)
+        console.log("**********", data)
+        const date_of_birth = currentDate.toLocaleDateString()
         return (
             <div className="container-fluid h-100">
                 <div className="row h-100">
@@ -36,7 +39,7 @@ const UserDetail = () => {
                                             <td>{data.username}</td>
                                             <td>{data.first_name}</td>
                                             <td>{data.last_name}</td>
-                                            <td>{data.date_of_birth}</td>
+                                            <td>{date_of_birth}</td>
                                             <td>{data.gender}</td>
                                             <td>{data.phone}</td>
                                             <td>
