@@ -1,6 +1,8 @@
 import {Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import {useSignoutMutation, useAuthenticateQuery, useSigninMutation} from "../app/apiSlice"
 import {useEffect} from 'react'
+import logo from "../img/logo.png"
+
 
 const Nav = () => {
     const navigate = useNavigate()
@@ -21,32 +23,27 @@ const Nav = () => {
 
     return (
         <div className>
-            <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
+                    <a href="#intro" className="navbar-brand">
+                        <img src={logo} width="100px"></img>
+                    </a>
+                    <a href="#intro" className="navbar-brand">
+                        <span className="fw-normal title">CarePilot</span>
+                    </a>
 
-                    <Link to={'/'} className="navbar-brand">
-                        <img src="https://imgur.com/sGRwUE2.jpg" alt="CarePilot Logo" className="navbar-logo" />
-                        CarePilot
-                    </Link>
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav"
-                        aria-controls="navbarNav"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <div className="collapse navbar-collapse justify-content-end align-center" id="navbarNavDropdown">
+                        <ul className="navbar-nav">
                             <li className="nav-item">
                                 <NavLink to={'/'} className={'nav-link'}>
                                     Home
                                 </NavLink>
                             </li>
-                            {!user && (
+                             {!user && (
                                 <li className="nav-item">
                                     <NavLink to={'/signin'} className={'nav-link'}>
                                         Login
@@ -70,16 +67,17 @@ const Nav = () => {
                                     </NavLink>
                                 </li>
                             )}
-
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown link
+                                </a>
+                                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a className="dropdown-item" href="#">Action</a>
+                                <a className="dropdown-item" href="#">Another action</a>
+                                <a className="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
                         </ul>
-                        {user && (
-                            <button
-                                className="btn btn-outline-danger"
-                                onClick={onSignoutClick}
-                            >
-                                Logout
-                            </button>
-                        )}
                     </div>
                 </div>
             </nav>

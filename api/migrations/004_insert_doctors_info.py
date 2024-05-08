@@ -17,7 +17,7 @@ steps = [
 
         """
         INSERT INTO doctors (first_name, last_name, specialty, image)
-        VALUES ('Genessy', 'Munoz', 'Neurologist', 'https://imgur.com/az1wbrm.jpg')
+        VALUES ('Genessy', 'Munoz', 'Neurologist', 'https://imgur.com/jzmWSnw.jpg')
         ;
         """,
 

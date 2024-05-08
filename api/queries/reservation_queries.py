@@ -93,6 +93,7 @@ class ReservationRepository:
             status=record[6],
             first_name=record[8],
             last_name=record[9],
+            image = record[10],
         )
 
     def record_to_reservation_out(self, record):
@@ -123,7 +124,9 @@ class ReservationRepository:
                             r.status,
                             d.id,
                             d.first_name,
-                            d.last_name
+                            d.last_name,
+                            d.image
+
 
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
