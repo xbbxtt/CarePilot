@@ -41,7 +41,10 @@ const PastReservations = () => {
                                     const date = currentDate.toLocaleDateString()
                                     const currentTime = new Date(reservation.date+"T"+reservation.time)
                                     const time = currentTime.toLocaleTimeString()
+
+
                                     return (
+                                        // (doctors.map(doctor => {
                                         <tr key={reservation.id}>
                                             <td>{date}</td>
                                             <td>{time}</td>

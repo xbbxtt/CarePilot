@@ -27,3 +27,4 @@ class ReservationDrOut(ReservationIn):
     status: str
     first_name: str
     last_name: str
+    image: str
