@@ -25,10 +25,10 @@ const Nav = () => {
         <div className>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
-                    <a href="#intro" className="navbar-brand">
+                    <a href="#" className="navbar-brand">
                         <img src={logo} width="100px"></img>
                     </a>
-                    <a href="#intro" className="navbar-brand">
+                    <a href="#" className="navbar-brand">
                         <span className="fw-normal title">CarePilot</span>
                     </a>
 
@@ -59,24 +59,45 @@ const Nav = () => {
                             )}
                             {user && home &&(
                                 <li className="nav-item">
-                                    <NavLink
-                                        to={'/reservations/'}
-                                        className={'nav-link'}
-                                    >
+                                    <NavLink to={'/reservations/'} className={'nav-link'}>
                                         Reservations
                                     </NavLink>
                                 </li>
                             )}
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown link
-                                </a>
-                                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a className="dropdown-item" href="#">Action</a>
-                                <a className="dropdown-item" href="#">Another action</a>
-                                <a className="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
+                            {user && (
+                                <li className="nav-item">
+                                    <NavLink to={'/patients/me'} className={'nav-link'}>
+                                        Profile
+                                    </NavLink>
+                                </li>
+                            )}
+                            {user && !home &&(
+                                <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Reservations
+                                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <NavLink to={'/reservations/'} className={'nav-link fw-light dpitem' } style= {{color: 'black'}}  >
+                                            Current Reservations
+                                        </NavLink>
+                                        <NavLink to={'/reservations/history/'} className={'nav-link fw-light dpitem'} style= {{color: 'black'}} >
+                                            Past Reservations
+                                        </NavLink>
+                                        <NavLink to={'/reservations/new/'} className={'nav-link fw-light dpitem'} style= {{color: 'black'}}>
+                                            Create new reservation
+                                        </NavLink>
+                                    </div>
+                                </li>
+                            )}
+                            {user && (
+                            <button
+                                className="btn btn-outline-danger"
+                                onClick={onSignoutClick}
+                            >
+                                Logout
+                            </button>
+                            )}
+
                         </ul>
                     </div>
                 </div>
