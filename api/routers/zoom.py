@@ -33,33 +33,19 @@ def get_token(code):
     token = token_json["access_token"]
     print(token)
 
-    try:
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                result = db.execute(
-                    """
-                    UPDATE tokens
-                    SET token = %s
-                    WHERE id = 1;
-                    """,
-                    [
-                        token,
-                    ]
-                )
-    except Exception:
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                result = db.execute(
-                    """
-                    INSERT INTO tokens
-                        (token)
-                    VALUES
-                        (%s);
-                    """,
-                    [
-                        token,
-                    ]
-                )
+
+    with pool.connection() as conn:
+        with conn.cursor() as db:
+            result = db.execute(
+                """
+                UPDATE tokens
+                SET token = %s
+                WHERE id = 1;
+                """,
+                [
+                    token,
+                ]
+            )
 
     return token
 

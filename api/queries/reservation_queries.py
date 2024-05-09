@@ -67,7 +67,8 @@ class ReservationRepository:
                             r.status,
                             d.id,
                             d.first_name,
-                            d.last_name
+                            d.last_name,
+                            d.image,
                             r.meeting_url
 
                         FROM reservations r
@@ -110,6 +111,7 @@ class ReservationRepository:
             time=record[4],
             doctor_id=record[6],
             status=record[7],
+            meeting_url=record[8],
         )
 
 
@@ -168,7 +170,8 @@ class ReservationRepository:
                             d.id,
                             d.first_name,
                             d.last_name,
-                            r.meeting_url,
+                            d.image,
+                            r.meeting_url
 
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
@@ -222,6 +225,7 @@ class ReservationRepository:
                             d.id,
                             d.first_name,
                             d.last_name,
+                            d.image,
                             r.meeting_url
 
                         FROM reservations r
@@ -260,7 +264,7 @@ class ReservationRepository:
                     result = db.execute(
                         """
                         SELECT
-                            id, insurance, reason, date, time, patient_id, doctor_id, status
+                            id, insurance, reason, date, time, patient_id, doctor_id, status, meeting_url
                         FROM reservations
 
                         WHERE id = %s;
@@ -297,7 +301,7 @@ class ReservationRepository:
                     result = db.execute(
                         """
                         SELECT
-                            id, insurance, reason, date, time, patient_id, doctor_id, status
+                            id, insurance, reason, date, time, patient_id, doctor_id, status, meeting_url
                         FROM reservations
 
                         WHERE id = %s;
