@@ -97,7 +97,7 @@ const reservationDetail = () => {
                                                                             <button type="button" className="btn user-update" data-bs-toggle="button"
                                                                                 onClick={() =>
                                                                                     navigate(
-                                                                                        `/reservations/update`
+                                                                                        `/reservations/${data.id}/update`
                                                                                     )
                                                                                 }
                                                                             >

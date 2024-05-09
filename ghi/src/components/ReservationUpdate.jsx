@@ -56,7 +56,11 @@ const ReservationUpdate = () => {
     return (
         <div className="row">
             <div className="col-md-6 offset-md-3">
-                <h1>Update Reservation</h1>
+                <br />
+                <br />
+                <h1 className="text-center">Update Reservation</h1>
+                <br />
+
                 {errorMessage && (
                     <div className="alert alert-danger" role="alert">
                         {errorMessage}

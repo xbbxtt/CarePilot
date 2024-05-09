@@ -25,12 +25,12 @@ const Nav = () => {
         <div className>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
-                    <a href="#" className="navbar-brand">
-                        <img src={logo} width="100px"></img>
-                    </a>
-                    <a href="#" className="navbar-brand">
+                    <NavLink to={'/'} className={'nav-link'}>
+                        <img src={logo} width="100px"></img>&nbsp;&nbsp;
+                    </NavLink>
+                    <NavLink to={'/'} className={'nav-link'}>
                         <span className="fw-normal title">CarePilot</span>
-                    </a>
+                    </NavLink>
 
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
