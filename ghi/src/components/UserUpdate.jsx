@@ -52,6 +52,8 @@ const UserUpdate = () => {
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h1>Update Information</h1>
+                    <br />
+
                     {errorMessage && (
                         <div className="alert alert-danger" role="alert">
                             {errorMessage}

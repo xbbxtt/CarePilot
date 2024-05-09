@@ -19,9 +19,9 @@ const Home = () => {
                     <br />
                     <br />
                     <br />
-                    <br />
-                    <br/>
-                    <br/>
+
+
+
 
                         <div className="container-lg">
                                 <div className="row justify-content-center">
