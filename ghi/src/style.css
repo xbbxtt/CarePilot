@@ -9,10 +9,10 @@
     font-family: 'DM serif Display';
 }
 .display-4{
-  font-weight: 100;
+    font-weight: 100;
 }
 .anytime-title{
-  font-weight: 500;
+    font-weight: 500;
 }
 
 .mainpg-button {
@@ -38,7 +38,6 @@
 }
 
 
-
 .dpitem{
     white-space: nowrap;
 
@@ -50,6 +49,10 @@ background-color:#eee;
 .project-list-table {
     border-collapse: separate;
     border-spacing: 0 12px
+}
+
+.crtitle {
+    font-family: 'DM serif Display';
 }
 
 .project-list-table tr {
