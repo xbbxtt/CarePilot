@@ -32,14 +32,15 @@ const Home = () => {
                                         </h1>
                                         <br/>
                                         <p>
-                                            Lorem Ipsum has been the industry's standard dummy text
-                                            ever since the 1500s, when an unknown printer took a
-                                            galley of type and scrambled it to make a type specimen
-                                            book. Lorem Ipsum has been the industry's standard dummy
-                                            text ever since the 1500s, when an unknown printer took
-                                            a galley of type and scrambled it to make a type
-                                            specimen book.
+                                            Welcome to CarePilot. where your health and convenience come
+                                            first. Experience the future of healthcare with our state-of-the-art
+                                            virtual care platform that connects you with highly qualified doctors
+                                            across a multitude of specialties, all from the comfort of your home.
+                                            Every consultation is private, personalized, and secure. Our doctors
+                                            take the time to listen to your needs and provide tailored advice and
+                                            treatment.
                                         </p>
+                                        <br />
                                         {!user && (
                                             <Link to={'/signin'} className="btn mainpg-button">
                                                 Make A Reservation
@@ -82,8 +83,7 @@ const Home = () => {
                                 Meet Our Team
                             </h2>
                             <p className="font-italic text-muted text-center">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing
-                                elit.
+                                Our medical staff are board certified in their areas of expertise.
                             </p>
                         </div>
                     <br/>
