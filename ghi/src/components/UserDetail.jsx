@@ -45,7 +45,6 @@ const UserDetail = () => {
                                                                 <td>{date_of_birth}</td>
                                                                 <td>{data.gender}</td>
                                                                 <td>{data.phone}</td>
-
                                                                 <td>
                                                                     <ul className="list-inline  mb-0">
                                                                         <li>
