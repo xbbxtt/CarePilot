@@ -7,10 +7,12 @@ from models.reservations import ReservationOut, ReservationIn, ReservationUpdate
 from utils.exceptions import UserDatabaseException
 from models.errors import Error
 from fastapi import HTTPException
+from routers.zoom import create_meeting
 
 
 class ReservationRepository:
     def create(self, reservation: ReservationIn, user_id: int) -> Union[ReservationOut, Error]:
+        meeting_url = create_meeting()
         try:
 
             with pool.connection() as conn:
@@ -20,9 +22,9 @@ class ReservationRepository:
                     result = db.execute(
                         """
                         INSERT INTO reservations
-                            (insurance, reason, date, time, patient_id, doctor_id, status)
+                            (insurance, reason, date, time, patient_id, doctor_id, status, meeting_url)
                         VALUES
-                            (%s, %s, %s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
                         """,
                         [
@@ -32,19 +34,20 @@ class ReservationRepository:
                             reservation.time,
                             user_id,
                             reservation.doctor_id,
-                            default_status
+                            default_status,
+                            meeting_url
                         ]
                     )
                     id = result.fetchone()[0]
 
-                    return self.reservation_in_to_out(id, reservation, default_status)
+                    return self.reservation_in_to_out(id, reservation, default_status, meeting_url)
         except Exception as e:
             print(e)
             raise HTTPException(status_code=401, detail="Create did not work")
 
-    def reservation_in_to_out(self, id: int, reservation: ReservationIn, status: str):
+    def reservation_in_to_out(self, id: int, reservation: ReservationIn, status: str, meeting_url: str):
         old_data = reservation.dict()
-        return ReservationOut(id=id, status=status, **old_data)
+        return ReservationOut(id=id, status=status, meeting_url=meeting_url, **old_data)
 
     def get_reservation(self, reservation_id: int) -> Optional[ReservationDrOut]:
         try:
@@ -65,6 +68,7 @@ class ReservationRepository:
                             d.id,
                             d.first_name,
                             d.last_name
+                            r.meeting_url
 
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
@@ -94,6 +98,7 @@ class ReservationRepository:
             first_name=record[8],
             last_name=record[9],
             image = record[10],
+            meeting_url=record[11],
         )
 
     def record_to_reservation_out(self, record):
@@ -125,7 +130,8 @@ class ReservationRepository:
                             d.id,
                             d.first_name,
                             d.last_name,
-                            d.image
+                            d.image,
+                            r.meeting_url
 
 
                         FROM reservations r
@@ -161,7 +167,8 @@ class ReservationRepository:
                             r.status,
                             d.id,
                             d.first_name,
-                            d.last_name
+                            d.last_name,
+                            r.meeting_url,
 
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
@@ -214,7 +221,8 @@ class ReservationRepository:
                             r.status,
                             d.id,
                             d.first_name,
-                            d.last_name
+                            d.last_name,
+                            r.meeting_url
 
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
@@ -225,7 +233,6 @@ class ReservationRepository:
                         ]
                     )
                     record = result.fetchone()
-                    print(record)
                     return self.record_to_reservation_dr_out(record)
         except Exception as e:
             print(e)
