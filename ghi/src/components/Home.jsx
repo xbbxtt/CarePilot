@@ -1,4 +1,4 @@
- import {Link, NavLink, useNavigate} from 'react-router-dom'
+import {Link, NavLink, useNavigate} from 'react-router-dom'
 import {useEffect} from 'react'
 import {useNewReservationMutation, useAuthenticateQuery, useDoctorsQuery} from "../app/apiSlice"
 import '../style.css'
