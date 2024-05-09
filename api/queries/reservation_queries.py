@@ -144,8 +144,6 @@ class ReservationRepository:
             print(e)
             raise HTTPException(status_code=404, detail="Could not get reservation")
 
-
-
     def get_all_completed_reservations(self) -> Union[Error, List[ReservationDrOut]]:
         try:
             with pool.connection() as conn:
@@ -162,7 +160,8 @@ class ReservationRepository:
                             r.status,
                             d.id,
                             d.first_name,
-                            d.last_name
+                            d.last_name,
+                            d.image
 
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
