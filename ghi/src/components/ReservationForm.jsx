@@ -39,102 +39,106 @@ const newReservation = () => {
     if (isLoading) return <>Loading...</>
 
     return (
-        <div className="row">
-            <div className="col-md-6 offset-md-3">
-                <h1>New Reservation</h1>
-                {errorMessage && (
-                    <div className="alert alert-danger" role="alert">
-                        {errorMessage}
-                    </div>
-                )}
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="newReservation_insurance" className="form-label">
-                            Insurance
-                        </label>
-                        <input
-                            type="boolean"
-                            className="form-control"
-                            id="newReservation_insurance"
-                            value={insurance}
-                            onChange={(e) => setInsurance(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="newReservation_reason" className="form-label">
-                            Reason
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="newReservation_reason"
-                            value={reason}
-                            onChange={(e) => setReason(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label
-                            htmlFor="newReservation_date"
-                            className="form-label"
-                        >
-                            Date
-                        </label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            id="newReservation_date"
-                            value={date}
-                            onChange={(e) =>
-                                setDate(e.target.value)
-                            }
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label
-                            htmlFor="newReservation_time"
-                            className="form-label"
-                        >
-                            Time
-                        </label>
-                        <input
-                            type="time"
-                            className="form-control"
-                            id="newReservation_time"
-                            value={time}
-                            onChange={(e) => setTime(e.target.value)}
-                        />
-                    </div>
-                    {/* <div className="mb-3">
-                        <label
-                            htmlFor="newReservation_doctorId"
-                            className="form-label"
-                        >
-                            Doctor
-                        </label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="newReservation_doctorId"
-                            value={doctor_id}
-                            onChange={(e) => setDoctorId(e.target.value)}
-                        />
-                    </div> */}
-                    <div className="mb-3">
-                        <select onChange={(e) => setDoctorId(e.target.value)} value={doctor_id} required name="doctor" id="doctor" className="form-select">
-                            <option value="">Choose a doctor</option>
-                            {doctors.map(doctor => {
-                            return (
-                                <option key={doctor.id} value={doctor.id}>{doctor.first_name} {doctor.last_name}</option>
-                            )
-                            })}
-                        </select>
-                    </div>
-                    <button type="submit" className="btn btn-success">
-                        Submit
-                    </button>
-                </form>
+        <div>
+            <br />
+            <br />
+            <div className="row">
+                <div className="col-md-6 offset-md-3">
+                    <h1>New Reservation</h1>
+                    {errorMessage && (
+                        <div className="alert alert-danger" role="alert">
+                            {errorMessage}
+                        </div>
+                    )}
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="newReservation_insurance" className="form-label">
+                                Insurance
+                            </label>
+                            <input
+                                type="boolean"
+                                className="form-control"
+                                id="newReservation_insurance"
+                                value={insurance}
+                                onChange={(e) => setInsurance(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="newReservation_reason" className="form-label">
+                                Reason
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="newReservation_reason"
+                                value={reason}
+                                onChange={(e) => setReason(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label
+                                htmlFor="newReservation_date"
+                                className="form-label"
+                            >
+                                Date
+                            </label>
+                            <input
+                                type="date"
+                                className="form-control"
+                                id="newReservation_date"
+                                value={date}
+                                onChange={(e) =>
+                                    setDate(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label
+                                htmlFor="newReservation_time"
+                                className="form-label"
+                            >
+                                Time
+                            </label>
+                            <input
+                                type="time"
+                                className="form-control"
+                                id="newReservation_time"
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                            />
+                        </div>
+                        {/* <div className="mb-3">
+                            <label
+                                htmlFor="newReservation_doctorId"
+                                className="form-label"
+                            >
+                                Doctor
+                            </label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="newReservation_doctorId"
+                                value={doctor_id}
+                                onChange={(e) => setDoctorId(e.target.value)}
+                            />
+                        </div> */}
+                        <div className="mb-3">
+                            <select onChange={(e) => setDoctorId(e.target.value)} value={doctor_id} required name="doctor" id="doctor" className="form-select">
+                                <option value="">Choose a doctor</option>
+                                {doctors.map(doctor => {
+                                return (
+                                    <option key={doctor.id} value={doctor.id}>{doctor.first_name} {doctor.last_name}</option>
+                                )
+                                })}
+                            </select>
+                        </div>
+                        <button type="submit" className="btn btn-success">
+                            Submit
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
+            </div>
     )
 }
 
