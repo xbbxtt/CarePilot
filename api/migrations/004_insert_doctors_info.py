@@ -3,7 +3,7 @@ steps = [
 
         """
         INSERT INTO doctors (first_name, last_name, specialty, image)
-        VALUES ('Shiran', 'Xiao', 'Family Doctor', 'https://imgur.com/4TKVFr4.jpg')
+        VALUES ('Shiran', 'Xiao', 'Family Doctor', 'https://imgur.com/bl4vCWr.jpg')
         ;
         """,
 
@@ -31,7 +31,7 @@ steps = [
 
         """
         INSERT INTO doctors (first_name, last_name, specialty, image)
-        VALUES ('Stanley', 'Dorosz', 'Orthopedic', 'https://imgur.com/p4D5njq.jpg')
+        VALUES ('Stanley', 'Dorosz', 'Orthopedic', 'https://imgur.com/IAHuwFR.jpg')
         ;
         """,
 
@@ -45,7 +45,7 @@ steps = [
 
         """
         INSERT INTO doctors (first_name, last_name, specialty, image)
-        VALUES ('Sean', 'Burch', 'ENT', 'https://imgur.com/CLDqvNt.jpg')
+        VALUES ('Sean', 'Burch', 'ENT', 'https://imgur.com/EJoRrQp.jpg')
         ;
         """,
 
@@ -59,7 +59,7 @@ steps = [
 
         """
         INSERT INTO doctors (first_name, last_name, specialty, image)
-        VALUES ('Jose', 'Medina', 'Cardiologist', 'https://imgur.com/ec3twf6.jpg')
+        VALUES ('Jose', 'Medina', 'Cardiologist', 'https://imgur.com/HkuS7ZL.jpg')
         ;
         """,
 
