@@ -40,20 +40,21 @@ const Nav = () => {
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <NavLink to={'/'} className={'nav-link'}>
-                                    Home
+                                    Home&nbsp;&nbsp;
                                 </NavLink>
                             </li>
                              {!user && (
                                 <li className="nav-item">
                                     <NavLink to={'/signin'} className={'nav-link'}>
-                                        Login
+                                        Login&nbsp;
                                     </NavLink>
                                 </li>
                             )}
+
                             {!user && (
                                 <li className="nav-item">
                                     <NavLink to={'/signup'} className={'nav-link'}>
-                                        Sign Up
+                                        Sign Up&nbsp;
                                     </NavLink>
                                 </li>
                             )}
