@@ -64,7 +64,8 @@ class ReservationRepository:
                             r.status,
                             d.id,
                             d.first_name,
-                            d.last_name
+                            d.last_name,
+                            d.image
 
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
