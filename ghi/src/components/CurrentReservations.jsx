@@ -32,6 +32,7 @@ const CurrentReservations = () => {
                                                 <th scope="col">Time</th>
                                                 <th scope="col">Reason</th>
                                                 <th scope="col">Insurance</th>
+                                                <th scope="col">Zoom Link</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                             </thead>
@@ -49,6 +50,11 @@ const CurrentReservations = () => {
                                                                 <td>{time}</td>
                                                                 <td><span className="badge badge-soft-success mb-0">{reservation.reason}</span></td>
                                                                 <td>{reservation.insurance}</td>
+                                                                <td>
+                                                                    <NavLink to={reservation.meeting_url} className={'nav-link link-primary'}>
+                                                                        Join&nbsp;&nbsp;
+                                                                    </NavLink>
+                                                                </td>
                                                                 <td>
                                                                     <ul className="list-inline mb-0 mx-3">
                                                                         <li className="list-inline-item">
