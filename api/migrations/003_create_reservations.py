@@ -1,6 +1,5 @@
 steps = [
     [
-        # "Up" SQL statement
         """
         CREATE TABLE reservations (
             id SERIAL PRIMARY KEY NOT NULL,
@@ -14,7 +13,6 @@ steps = [
             meeting_url TEXT NOT NULL
         );
         """,
-        # "Down" SQL statement
         """
         DROP TABLE reservations;
         """

@@ -1,31 +1,14 @@
-"""
-Database Queries for Users
-"""
 import psycopg
 from queries.pool import pool
 from psycopg.rows import class_row
-from typing import Optional, Union
+from typing import Optional
 from models.users import UserWithPw, UserIn, UserOut, UserUpdate
 from utils.exceptions import UserDatabaseException
-from models.errors import Error
 from fastapi import HTTPException
 
+
 class UserQueries:
-    """
-    Class containing queries for the Users table
-
-    Can be dependency injected into a route like so
-
-    def my_route(userQueries: UserQueries = Depends()):
-        # Here you can call any of the functions to query the DB
-    """
-
-    def get_by_username(self, username: str) -> Optional[UserWithPw]:
-        """
-        Gets a user from the database by username
-
-        Returns None if the user isn't found
-        """
+    def get_by_username(self, username: str) -> UserWithPw:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
@@ -45,12 +28,8 @@ class UserQueries:
             raise UserDatabaseException(f"Error getting user {username}")
         return user
 
-    def get_by_id(self, id: int) -> Optional[UserWithPw]:
-        """
-        Gets a user from the database by user id
 
-        Returns None if the user isn't found
-        """
+    def get_by_id(self, id: int) -> Optional[UserWithPw]:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
@@ -68,15 +47,10 @@ class UserQueries:
                         return None
         except psycopg.Error:
             raise UserDatabaseException(f"Error getting user with id {id}")
-
         return user
 
-    def create_user(self, username: UserIn, hashed_password: str) -> UserWithPw:
-        """
-        Creates a new user in the database
 
-        Raises a UserInsertionException if creating the user fails
-        """
+    def create_user(self, username: UserIn, hashed_password: str) -> UserWithPw:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
@@ -110,13 +84,10 @@ class UserQueries:
         return user
 
 
-    def update_user(self, user_id: int, user: UserUpdate, hashed_password: str) -> Optional[UserOut]:
+    def update_user(self, user_id: int, user: UserUpdate, hashed_password: str) -> UserOut:
         try:
-            # connect the database
             with pool.connection() as conn:
-                # get a cursor (something to run SQL with)
                 with conn.cursor() as db:
-                    # run our SELECT statement
                     db.execute(
                         """
                         UPDATE users

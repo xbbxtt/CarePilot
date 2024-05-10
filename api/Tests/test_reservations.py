@@ -5,6 +5,7 @@ from models.reservations import ReservationIn, ReservationDrOut, ReservationOut,
 from models.users import UserResponse, UserResponseDetail
 from utils.authentication import try_get_jwt_user_data
 
+
 client = TestClient(app)
 
 
@@ -23,8 +24,7 @@ def fake_try_get_jwt_user_data():
 class FakeReservationRepository:
     def create(self, reservation: ReservationIn, user_id:int):
         sample_reservations = {
-
-            "id": 157,
+            "id": user_id,
             "insurance": reservation.insurance,
             "reason": reservation.reason,
             "date": reservation.date,
@@ -33,8 +33,8 @@ class FakeReservationRepository:
             "status": "current",
             "meeting_url": "testmeeting"
     }
-
         return sample_reservations
+
 
     def get_reservation(self, reservation_id: int):
         sample_reservations = {
@@ -51,6 +51,7 @@ class FakeReservationRepository:
             "meeting_url": "testmeeting"
         }
         return sample_reservations
+
 
     def get_all_current_reservations(self):
         sample_reservations = [{
@@ -93,6 +94,7 @@ class FakeReservationRepository:
             "meeting_url": "testmeeting"
         }]
         return sample_reservations
+
 
     def get_all_completed_reservations(self):
         sample_reservations = [
@@ -138,6 +140,7 @@ class FakeReservationRepository:
         ]
         return sample_reservations
 
+
     def update_reservation(self, reservation_id:int, reservation: ReservationUpdate):
         sample_reservations = {
 
@@ -153,26 +156,21 @@ class FakeReservationRepository:
                 "image": "testimage",
                 "meeting_url": "testmeeting"
             }
-
         return sample_reservations
 
-def test_create():
 
+def test_create():
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
     app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
     body = {
         "insurance": "fidelis",
         "reason": "arm pain",
         "date": "2024-05-01",
         "time": "20:24:47.000Z",
         "doctor_id": 2
-
     }
     res = client.post('/api/reservations', json=body)
-
     data = res.json()
-
     assert res.status_code == 200
     assert data == {
         "id": 157,
@@ -183,18 +181,14 @@ def test_create():
         "doctor_id": 2,
         "status": "current",
         "meeting_url": "testmeeting"
-
     }
 
 
 def test_get_reservation():
-
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
     app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
     res = client.get('/api/reservations/1')
     data = res.json()
-
     assert res.status_code == 200
     assert data == {
         "id": 1,
@@ -212,14 +206,10 @@ def test_get_reservation():
 
 
 def test_get_all_current_reservations():
-
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
     app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
     res = client.get('/api/reservations')
-
     data = res.json()
-
     assert res.status_code == 200
     assert data == [{
             "insurance": "blue",
@@ -264,14 +254,10 @@ def test_get_all_current_reservations():
 
 
 def test_get_all_completed_reservations():
-
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
     app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
     res = client.get('/api/history/reservations')
-
     data = res.json()
-
     assert res.status_code == 200
     assert data == [
             {
@@ -316,22 +302,18 @@ def test_get_all_completed_reservations():
         ]
     assert len(data) == 3
 
-def test_update_reservation():
 
+def test_update_reservation():
     app.dependency_overrides[ReservationRepository] = FakeReservationRepository
     app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
-
     body = {
         "insurance": "fidelis",
         "reason": "arm pain",
         "date": "2024-05-01",
         "time": "20:24:47Z"
-
     }
     res = client.put('/api/reservations/2', json=body)
-
     data = res.json()
-
     assert res.status_code == 200
     assert data == {
         "insurance": "fidelis",

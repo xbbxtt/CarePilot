@@ -9,10 +9,8 @@ router = APIRouter()
 
 
 @router.get("/zoom")
-def authorize_zoom(request: Request):
-
+def authorize_zoom():
     full_authorization_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id=OAwVjWjqQIGaSCrCpzprAw&redirect_uri=http://localhost:8000/callback"
-
     return RedirectResponse(url=full_authorization_url)
 
 
@@ -25,17 +23,14 @@ def get_token(code):
     post_data = {"grant_type": "authorization_code",
                  "code": code,
                  "redirect_uri": REDIRECT_URI}
-
     response = requests.post("https://zoom.us/oauth/token",
                              auth=client_auth,
                              data=post_data)
     token_json = response.json()
     token = token_json["access_token"]
-
-
     with pool.connection() as conn:
         with conn.cursor() as db:
-            result = db.execute(
+            db.execute(
                 """
                 UPDATE tokens
                 SET token = %s
@@ -45,7 +40,6 @@ def get_token(code):
                     token,
                 ]
             )
-
     return token
 
 
@@ -65,7 +59,6 @@ meeting_detials = {
     "type": 1,
     "weekly_days": "1"
   },
-
   "settings": {
     "additional_data_center_regions": [
       "TY"
@@ -113,7 +106,6 @@ meeting_detials = {
     "encryption_type": "enhanced_encryption",
     "focus_mode": True,
     "global_dial_in_countries": [
-
     ],
     "host_video": True,
     "jbh_time": 0,
@@ -185,9 +177,7 @@ meeting_detials = {
 }
 
 
-
 def create_meeting():
-
     with pool.connection() as conn:
         with conn.cursor() as db:
             result = db.execute(
@@ -198,13 +188,10 @@ def create_meeting():
                 """,
             )
             token = result.fetchone()[0]
-
     headers= {"Authorization": "bearer " + token, 'content-type': 'application/json'}
     response = requests.post("https://api.zoom.us/v2/users/me/meetings", headers=headers, data=json.dumps(meeting_detials))
     meeting = response.json()
-    start_url = meeting["start_url"]
     join_url = meeting["join_url"]
-
     return join_url
 
 
