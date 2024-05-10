@@ -1,6 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException
 from typing import List
-from models.reservations import ReservationOut, ReservationIn, ReservationUpdate, ReservationDrOut
+from models.reservations import (ReservationOut,
+                                 ReservationIn,
+                                 ReservationUpdate,
+                                 ReservationDrOut)
 from models.users import UserResponse
 from utils.authentication import try_get_jwt_user_data
 from queries.reservation_queries import (
@@ -22,7 +25,8 @@ def create_reservation(
     return repo.create(reservation, user_response.id)
 
 
-@router.get("/api/reservations/{reservation_id}", response_model=ReservationDrOut)
+@router.get("/api/reservations/{reservation_id}",
+            response_model=ReservationDrOut)
 def get_reservation(
     reservation_id: int,
     repo: ReservationRepository = Depends(),
@@ -53,7 +57,8 @@ def get_all_completed_reservations(
     return repo.get_all_completed_reservations()
 
 
-@router.put("/api/reservations/{reservation_id}", response_model=ReservationDrOut)
+@router.put("/api/reservations/{reservation_id}",
+            response_model=ReservationDrOut)
 def update_reservation(
     reservation_id: int,
     reservation: ReservationUpdate,
@@ -65,7 +70,8 @@ def update_reservation(
     return repo.update_reservation(reservation_id, reservation)
 
 
-@router.put("/api/reservations/{reservation_id}/cancel", response_model=ReservationOut)
+@router.put("/api/reservations/{reservation_id}/cancel",
+            response_model=ReservationOut)
 def cancel_reservation(
     reservation_id: int,
     repo: ReservationRepository = Depends(),
@@ -76,7 +82,8 @@ def cancel_reservation(
     return repo.cancel_reservation(reservation_id)
 
 
-@router.put("/api/reservations/{reservation_id}/complete", response_model=ReservationOut)
+@router.put("/api/reservations/{reservation_id}/complete",
+            response_model=ReservationOut)
 def complete_reservation(
     reservation_id: int,
     repo: ReservationRepository = Depends(),

@@ -1,5 +1,5 @@
 import os
-from fastapi import Request, APIRouter
+from fastapi import APIRouter
 from fastapi.responses import RedirectResponse
 import requests.auth
 from queries.pool import pool
@@ -191,8 +191,10 @@ def create_meeting():
                 """,
             )
             token = result.fetchone()[0]
-    headers= {"Authorization": "bearer " + token, 'content-type': 'application/json'}
-    response = requests.post("https://api.zoom.us/v2/users/me/meetings", headers=headers, data=json.dumps(meeting_detials))
+    headers = {"Authorization": "bearer " + token,
+               'content-type': 'application/json'}
+    response = requests.post("https://api.zoom.us/v2/users/me/meetings",
+                             headers=headers, data=json.dumps(meeting_detials))
     meeting = response.json()
     join_url = meeting["join_url"]
     return join_url

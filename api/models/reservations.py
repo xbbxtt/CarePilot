@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import date,time
+from datetime import date, time
 
 
 class ReservationIn(BaseModel):
