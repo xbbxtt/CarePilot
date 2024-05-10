@@ -1,5 +1,5 @@
 import os
-from fastapi import APIRouter
+from fastapi import Request, APIRouter
 from fastapi.responses import RedirectResponse
 import requests.auth
 from queries.pool import pool
@@ -204,6 +204,6 @@ def url():
     return url
 
 
-def create_dummy_meeting():
+def create_d_meeting():
     join_url = "https://us04web.zoom.us/j/76895945229?pwd=eY9SxeEi2NAuaBarNIfhJKEVpQVYOv.1"
     return join_url
