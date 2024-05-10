@@ -18,7 +18,6 @@ def create_reservation(
     repo: ReservationRepository = Depends(),
     user_response: UserResponse = Depends(try_get_jwt_user_data),
 ) -> ReservationOut:
-    print("$$$$$$$", user_response)
     if user_response is None:
         raise HTTPException(status_code=401, detail='You must login!')
 

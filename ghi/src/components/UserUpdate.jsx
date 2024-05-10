@@ -13,8 +13,6 @@ const UserUpdate = () => {
     const { data, isLoading, error } = useAuthenticateQuery()
     const [userUpdate, userUpdateStatus] = useUserUpdateMutation()
 
-    console.log(data, userUpdateStatus)
-
     useEffect(() => {
         if (data) {
             setPhone(data.phone)
@@ -33,11 +31,6 @@ const UserUpdate = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log({
-            password,
-            confirmed_password,
-            phone,
-        }, userUpdateStatus)
         userUpdate({
             password,
             confirmed_password,
@@ -46,7 +39,6 @@ const UserUpdate = () => {
     }
 
     const currentDate = new Date(data.date_of_birth)
-    console.log("**********", data)
     const date_of_birth = currentDate.toLocaleDateString()
 
     return (

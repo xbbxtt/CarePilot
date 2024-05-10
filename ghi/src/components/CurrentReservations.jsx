@@ -20,7 +20,7 @@ const CurrentReservations = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
-                            <div className="">
+                            <div>
                                 <div className="table-responsive">
                                     <h1 className="crtitle">Current Reservations</h1>
                                     <br/>

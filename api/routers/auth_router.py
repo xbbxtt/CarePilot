@@ -51,8 +51,7 @@ async def signup(
     # Create the user in the database
     try:
         user = queries.create_user(new_user, hashed_password)
-    except UserDatabaseException as e:
-        print(e)
+    except UserDatabaseException:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
     # Generate a JWT token

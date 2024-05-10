@@ -31,7 +31,6 @@ def get_token(code):
                              data=post_data)
     token_json = response.json()
     token = token_json["access_token"]
-    print(token)
 
 
     with pool.connection() as conn:
@@ -199,17 +198,12 @@ def create_meeting():
                 """,
             )
             token = result.fetchone()[0]
-            print("----------------------------------", token)
 
     headers= {"Authorization": "bearer " + token, 'content-type': 'application/json'}
     response = requests.post("https://api.zoom.us/v2/users/me/meetings", headers=headers, data=json.dumps(meeting_detials))
-    print("+++++++++++++++++++++++++++++++++++", response)
     meeting = response.json()
-    print("+++++++++++++++++++++++++++++++++++", meeting)
     start_url = meeting["start_url"]
     join_url = meeting["join_url"]
-    print("+++++++++++++++++++++++++++++++++++", join_url)
-    print("==================================", start_url)
 
     return join_url
 

@@ -41,8 +41,7 @@ class UserQueries:
                     user = cur.fetchone()
                     if not user:
                         return None
-        except psycopg.Error as e:
-            print(e)
+        except psycopg.Error:
             raise UserDatabaseException(f"Error getting user {username}")
         return user
 
@@ -67,8 +66,7 @@ class UserQueries:
                     user = cur.fetchone()
                     if not user:
                         return None
-        except psycopg.Error as e:
-            print(e)
+        except psycopg.Error:
             raise UserDatabaseException(f"Error getting user with id {id}")
 
         return user
@@ -101,7 +99,6 @@ class UserQueries:
                         ]
                     )
                     user = cur.fetchone()
-                    print("------------", user)
                     if not user:
                         raise UserDatabaseException(
                             f"Could not create user with username {username.username}"
@@ -147,8 +144,7 @@ class UserQueries:
                     )
                     record = result.fetchone()
                     return self.record_to_user_out(record)
-        except Exception as e:
-            print(e)
+        except Exception:
             raise HTTPException(status_code=404, detail="Could not get user")
 
 
