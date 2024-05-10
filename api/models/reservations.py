@@ -13,6 +13,7 @@ class ReservationIn(BaseModel):
 class ReservationOut(ReservationIn):
     id: int
     status: str
+    meeting_url: str
 
 
 class ReservationUpdate(BaseModel):
@@ -28,3 +29,4 @@ class ReservationDrOut(ReservationIn):
     first_name: str
     last_name: str
     image: str
+    meeting_url: str

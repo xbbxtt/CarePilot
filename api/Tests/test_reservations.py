@@ -30,7 +30,8 @@ class FakeReservationRepository:
             "date": reservation.date,
             "time": reservation.time,
             "doctor_id": reservation.doctor_id,
-            "status": "current"
+            "status": "current",
+            "meeting_url": "testmeeting"
     }
 
         return sample_reservations
@@ -45,7 +46,9 @@ class FakeReservationRepository:
             "id": reservation_id,
             "status": "current",
             "first_name": "string",
-            "last_name": "string"
+            "last_name": "string",
+            "image": "testimage",
+            "meeting_url": "testmeeting"
         }
         return sample_reservations
 
@@ -59,7 +62,9 @@ class FakeReservationRepository:
             "id": 1,
             "status": "current",
             "first_name": "string",
-            "last_name": "string"
+            "last_name": "string",
+            "image": "testimage",
+            "meeting_url": "testmeeting"
         },
         {
             "insurance": "red",
@@ -70,7 +75,9 @@ class FakeReservationRepository:
             "id": 2,
             "status": "current",
             "first_name": "string",
-            "last_name": "string"
+            "last_name": "string",
+            "image": "testimage",
+            "meeting_url": "testmeeting"
         },
         {
             "insurance": "white",
@@ -81,7 +88,9 @@ class FakeReservationRepository:
             "id": 3,
             "status": "current",
             "first_name": "string",
-            "last_name": "string"
+            "last_name": "string",
+            "image": "testimage",
+            "meeting_url": "testmeeting"
         }]
         return sample_reservations
 
@@ -96,7 +105,9 @@ class FakeReservationRepository:
                 "id": 1,
                 "status": "current",
                 "first_name": "string",
-                "last_name": "string"
+                "last_name": "string",
+                "image": "testimage",
+                "meeting_url": "testmeeting"
             },
             {
                 "insurance": "red",
@@ -107,7 +118,9 @@ class FakeReservationRepository:
                 "id": 2,
                 "status": "current",
                 "first_name": "string",
-                "last_name": "string"
+                "last_name": "string",
+                "image": "testimage",
+                "meeting_url": "testmeeting"
             },
             {
                 "insurance": "white",
@@ -118,7 +131,9 @@ class FakeReservationRepository:
                 "id": 3,
                 "status": "current",
                 "first_name": "string",
-                "last_name": "string"
+                "last_name": "string",
+                "image": "testimage",
+                "meeting_url": "testmeeting"
             }
         ]
         return sample_reservations
@@ -134,7 +149,9 @@ class FakeReservationRepository:
                 "id": reservation_id,
                 "status": "current",
                 "first_name": "string",
-                "last_name": "string"
+                "last_name": "string",
+                "image": "testimage",
+                "meeting_url": "testmeeting"
             }
 
         return sample_reservations
@@ -164,7 +181,8 @@ def test_create():
         "date": "2024-05-01",
         "time": "20:24:47Z",
         "doctor_id": 2,
-        "status": "current"
+        "status": "current",
+        "meeting_url": "testmeeting"
 
     }
 
@@ -187,7 +205,9 @@ def test_get_reservation():
         "doctor_id": 2,
         "status": "current",
         "first_name": "string",
-        "last_name": "string"
+        "last_name": "string",
+        "image": "testimage",
+        "meeting_url": "testmeeting"
     }
 
 
@@ -210,7 +230,9 @@ def test_get_all_current_reservations():
             "id": 1,
             "status": "current",
             "first_name": "string",
-            "last_name": "string"
+            "last_name": "string",
+            "image": "testimage",
+            "meeting_url": "testmeeting"
         },
         {
             "insurance": "red",
@@ -221,7 +243,9 @@ def test_get_all_current_reservations():
             "id": 2,
             "status": "current",
             "first_name": "string",
-            "last_name": "string"
+            "last_name": "string",
+            "image": "testimage",
+            "meeting_url": "testmeeting"
         },
         {
             "insurance": "white",
@@ -232,7 +256,9 @@ def test_get_all_current_reservations():
             "id": 3,
             "status": "current",
             "first_name": "string",
-            "last_name": "string"
+            "last_name": "string",
+            "image": "testimage",
+            "meeting_url": "testmeeting"
         }]
     assert len(data) == 3
 
@@ -257,7 +283,9 @@ def test_get_all_completed_reservations():
                 "id": 1,
                 "status": "current",
                 "first_name": "string",
-                "last_name": "string"
+                "last_name": "string",
+                "image": "testimage",
+                "meeting_url": "testmeeting"
             },
             {
                 "insurance": "red",
@@ -268,7 +296,9 @@ def test_get_all_completed_reservations():
                 "id": 2,
                 "status": "current",
                 "first_name": "string",
-                "last_name": "string"
+                "last_name": "string",
+                "image": "testimage",
+                "meeting_url": "testmeeting"
             },
             {
                 "insurance": "white",
@@ -279,7 +309,9 @@ def test_get_all_completed_reservations():
                 "id": 3,
                 "status": "current",
                 "first_name": "string",
-                "last_name": "string"
+                "last_name": "string",
+                "image": "testimage",
+                "meeting_url": "testmeeting"
             }
         ]
     assert len(data) == 3
@@ -310,5 +342,7 @@ def test_update_reservation():
         "id": 2,
         "status": "current",
         "first_name": "string",
-        "last_name": "string"
+        "last_name": "string",
+        "image": "testimage",
+        "meeting_url": "testmeeting"
     }

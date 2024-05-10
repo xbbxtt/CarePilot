@@ -45,6 +45,10 @@ const UserUpdate = () => {
         })
     }
 
+    const currentDate = new Date(data.date_of_birth)
+    console.log("**********", data)
+    const date_of_birth = currentDate.toLocaleDateString()
+
     return (
         <div>
             <br />
@@ -75,7 +79,7 @@ const UserUpdate = () => {
                                     <td>{data.username}</td>
                                     <td>{data.first_name}</td>
                                     <td>{data.last_name}</td>
-                                    <td>{data.date_of_birth}</td>
+                                    <td>{date_of_birth}</td>
                                     <td>{data.gender}</td>
                                 </tr>
                             </tbody>
