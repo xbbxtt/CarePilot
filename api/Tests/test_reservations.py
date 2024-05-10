@@ -1,8 +1,8 @@
 from main import app
 from fastapi.testclient import TestClient
 from queries.reservation_queries import ReservationRepository
-from models.reservations import ReservationIn, ReservationDrOut, ReservationOut, ReservationUpdate
-from models.users import UserResponse, UserResponseDetail
+from models.reservations import ReservationIn, ReservationUpdate
+from models.users import UserResponse
 from utils.authentication import try_get_jwt_user_data
 
 
@@ -22,7 +22,7 @@ def fake_try_get_jwt_user_data():
 
 
 class FakeReservationRepository:
-    def create(self, reservation: ReservationIn, user_id:int):
+    def create(self, reservation: ReservationIn, user_id: int):
         sample_reservations = {
             "id": user_id,
             "insurance": reservation.insurance,
@@ -32,9 +32,8 @@ class FakeReservationRepository:
             "doctor_id": reservation.doctor_id,
             "status": "current",
             "meeting_url": "testmeeting"
-    }
+        }
         return sample_reservations
-
 
     def get_reservation(self, reservation_id: int):
         sample_reservations = {
@@ -52,7 +51,6 @@ class FakeReservationRepository:
         }
         return sample_reservations
 
-
     def get_all_current_reservations(self):
         sample_reservations = [{
             "insurance": "blue",
@@ -67,7 +65,7 @@ class FakeReservationRepository:
             "image": "testimage",
             "meeting_url": "testmeeting"
         },
-        {
+            {
             "insurance": "red",
             "reason": "test",
             "date": "2024-05-02",
@@ -80,7 +78,7 @@ class FakeReservationRepository:
             "image": "testimage",
             "meeting_url": "testmeeting"
         },
-        {
+            {
             "insurance": "white",
             "reason": "test",
             "date": "2024-05-02",
@@ -94,7 +92,6 @@ class FakeReservationRepository:
             "meeting_url": "testmeeting"
         }]
         return sample_reservations
-
 
     def get_all_completed_reservations(self):
         sample_reservations = [
@@ -140,8 +137,9 @@ class FakeReservationRepository:
         ]
         return sample_reservations
 
-
-    def update_reservation(self, reservation_id:int, reservation: ReservationUpdate):
+    def update_reservation(self,
+                           reservation_id: int,
+                           reservation: ReservationUpdate):
         sample_reservations = {
 
                 "insurance": reservation.insurance,

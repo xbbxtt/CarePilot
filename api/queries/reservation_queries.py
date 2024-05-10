@@ -1,13 +1,18 @@
-import psycopg
 from queries.pool import pool
 from typing import List
-from models.reservations import ReservationOut, ReservationIn, ReservationUpdate, ReservationDrOut
+from models.reservations import (ReservationOut,
+                                 ReservationIn,
+                                 ReservationUpdate,
+                                 ReservationDrOut)
+
 from fastapi import HTTPException
 from routers.zoom import create_meeting
 
 
 class ReservationRepository:
-    def create(self, reservation: ReservationIn, user_id: int) -> ReservationOut:
+    def create(self,
+               reservation: ReservationIn,
+               user_id: int) -> ReservationOut:
         meeting_url = create_meeting()
         try:
             with pool.connection() as conn:
@@ -16,7 +21,14 @@ class ReservationRepository:
                     result = db.execute(
                         """
                         INSERT INTO reservations
-                            (insurance, reason, date, time, patient_id, doctor_id, status, meeting_url)
+                            (insurance,
+                            reason,
+                            date,
+                            time,
+                            patient_id,
+                            doctor_id,
+                            status,
+                            meeting_url)
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
@@ -33,15 +45,24 @@ class ReservationRepository:
                         ]
                     )
                     id = result.fetchone()[0]
-                    return self.reservation_in_to_out(id, reservation, default_status, meeting_url)
+                    return self.reservation_in_to_out(
+                        id,
+                        reservation,
+                        default_status,
+                        meeting_url)
         except Exception:
             raise HTTPException(status_code=401, detail="Create did not work")
 
-
-    def reservation_in_to_out(self, id: int, reservation: ReservationIn, status: str, meeting_url: str):
+    def reservation_in_to_out(self,
+                              id: int,
+                              reservation: ReservationIn,
+                              status: str,
+                              meeting_url: str):
         old_data = reservation.dict()
-        return ReservationOut(id=id, status=status, meeting_url=meeting_url, **old_data)
-
+        return ReservationOut(id=id,
+                              status=status,
+                              meeting_url=meeting_url,
+                              **old_data)
 
     def get_reservation(self, reservation_id: int) -> ReservationDrOut:
         try:
@@ -73,8 +94,8 @@ class ReservationRepository:
                     record = result.fetchone()
                     return self.record_to_reservation_dr_out(record)
         except Exception:
-            raise HTTPException(status_code=404, detail="Could not get reservation")
-
+            raise HTTPException(status_code=404,
+                                detail="Could not get reservation")
 
     def record_to_reservation_dr_out(self, record):
         return ReservationDrOut(
@@ -87,10 +108,9 @@ class ReservationRepository:
             status=record[6],
             first_name=record[8],
             last_name=record[9],
-            image = record[10],
+            image=record[10],
             meeting_url=record[11],
         )
-
 
     def record_to_reservation_out(self, record):
         return ReservationOut(
@@ -104,8 +124,8 @@ class ReservationRepository:
             meeting_url=record[8],
         )
 
-
-    def get_all_current_reservations(self, user_id: int) -> List[ReservationDrOut]:
+    def get_all_current_reservations(self,
+                                     user_id: int) -> List[ReservationDrOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -136,8 +156,8 @@ class ReservationRepository:
                         for record in result
                     ]
         except Exception:
-            raise HTTPException(status_code=404, detail="Could not get reservation")
-
+            raise HTTPException(status_code=404,
+                                detail="Could not get reservation")
 
     def get_all_completed_reservations(self) -> List[ReservationDrOut]:
         try:
@@ -170,10 +190,12 @@ class ReservationRepository:
                         for record in result
                     ]
         except Exception:
-            raise HTTPException(status_code=404, detail="Could not get reservation")
+            raise HTTPException(status_code=404,
+                                detail="Could not get reservation")
 
-
-    def update_reservation(self, reservation_id: int, reservation: ReservationUpdate) -> ReservationDrOut:
+    def update_reservation(self,
+                           reservation_id: int,
+                           reservation: ReservationUpdate) -> ReservationDrOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -220,8 +242,8 @@ class ReservationRepository:
                     record = result.fetchone()
                     return self.record_to_reservation_dr_out(record)
         except Exception:
-            raise HTTPException(status_code=404, detail="Could not update reservation")
-
+            raise HTTPException(status_code=404,
+                                detail="Could not update reservation")
 
     def cancel_reservation(self, reservation_id: int) -> ReservationOut:
         try:
@@ -242,7 +264,15 @@ class ReservationRepository:
                     result = db.execute(
                         """
                         SELECT
-                            id, insurance, reason, date, time, patient_id, doctor_id, status, meeting_url
+                            id,
+                            insurance,
+                            reason,
+                            date,
+                            time,
+                            patient_id,
+                            doctor_id,
+                            status,
+                            meeting_url
                         FROM reservations
                         WHERE id = %s;
                         """,
@@ -253,8 +283,8 @@ class ReservationRepository:
                     record = result.fetchone()
                     return self.record_to_reservation_out(record)
         except Exception:
-            raise HTTPException(status_code=404, detail="Could not cancel reservation")
-
+            raise HTTPException(status_code=404,
+                                detail="Could not cancel reservation")
 
     def complete_reservation(self, reservation_id: int) -> ReservationOut:
         try:
@@ -275,7 +305,15 @@ class ReservationRepository:
                     result = db.execute(
                         """
                         SELECT
-                            id, insurance, reason, date, time, patient_id, doctor_id, status, meeting_url
+                            id,
+                            insurance,
+                            reason,
+                            date,
+                            time,
+                            patient_id,
+                            doctor_id,
+                            status,
+                            meeting_url
                         FROM reservations
 
                         WHERE id = %s;
@@ -287,4 +325,5 @@ class ReservationRepository:
                     record = result.fetchone()
                     return self.record_to_reservation_out(record)
         except Exception:
-            raise HTTPException(status_code=404, detail="Could not complete reservation")
+            raise HTTPException(status_code=404,
+                                detail="Could not complete reservation")

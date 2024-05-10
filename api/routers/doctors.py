@@ -1,10 +1,9 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends
 from typing import List
 from models.doctors import DoctorsIn, DoctorsOut
 from queries.doctor_queries import (
     DoctorRepository
 )
-
 
 router = APIRouter()
 

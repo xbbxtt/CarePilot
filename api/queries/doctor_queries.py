@@ -1,4 +1,3 @@
-import psycopg
 from queries.pool import pool
 from typing import List
 from models.doctors import DoctorsOut, DoctorsIn
@@ -30,11 +29,9 @@ class DoctorRepository:
         except Exception:
             raise HTTPException(status_code=401, detail="Create did not work")
 
-
     def doctor_in_to_out(self, id: int, doctor: DoctorsIn):
         old_data = doctor.dict()
         return DoctorsOut(id=id, **old_data)
-
 
     def get_doctor(self, doctor_id: int) -> DoctorsOut:
         try:
@@ -53,8 +50,8 @@ class DoctorRepository:
                     record = result.fetchone()
                     return self.record_to_doctor_out(record)
         except Exception:
-            raise HTTPException(status_code=404, detail="Could not get reservation")
-
+            raise HTTPException(status_code=404,
+                                detail="Could not get reservation")
 
     def record_to_doctor_out(self, record):
         return DoctorsOut(
@@ -64,7 +61,6 @@ class DoctorRepository:
             specialty=record[3],
             image=record[4],
         )
-
 
     def get_all_doctors(self) -> List[DoctorsOut]:
         try:
@@ -82,4 +78,5 @@ class DoctorRepository:
                         for record in result
                     ]
         except Exception:
-            raise HTTPException(status_code=404, detail="Could not get reservation")
+            raise HTTPException(status_code=404,
+                                detail="Could not get reservation")

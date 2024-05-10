@@ -28,7 +28,6 @@ class UserQueries:
             raise UserDatabaseException(f"Error getting user {username}")
         return user
 
-
     def get_by_id(self, id: int) -> Optional[UserWithPw]:
         try:
             with pool.connection() as conn:
@@ -49,15 +48,23 @@ class UserQueries:
             raise UserDatabaseException(f"Error getting user with id {id}")
         return user
 
-
-    def create_user(self, username: UserIn, hashed_password: str) -> UserWithPw:
+    def create_user(
+            self,
+            username: UserIn,
+            hashed_password: str) -> UserWithPw:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
                     cur.execute(
                         """
                         INSERT INTO users
-                            (first_name, last_name, username, password, date_of_birth, gender, phone)
+                            (first_name,
+                            last_name,
+                            username,
+                            password,
+                            date_of_birth,
+                            gender,
+                            phone)
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s)
                         RETURNING *;
@@ -83,8 +90,10 @@ class UserQueries:
             )
         return user
 
-
-    def update_user(self, user_id: int, user: UserUpdate, hashed_password: str) -> UserOut:
+    def update_user(self,
+                    user_id: int,
+                    user: UserUpdate,
+                    hashed_password: str) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -104,7 +113,14 @@ class UserQueries:
                     result = db.execute(
                         """
                         SELECT
-                            id, first_name, last_name, username, password, date_of_birth, gender, phone
+                            id,
+                            first_name,
+                            last_name,
+                            username,
+                            password,
+                            date_of_birth,
+                            gender,
+                            phone
                         FROM users
 
                         WHERE id = %s;
@@ -117,7 +133,6 @@ class UserQueries:
                     return self.record_to_user_out(record)
         except Exception:
             raise HTTPException(status_code=404, detail="Could not get user")
-
 
     def record_to_user_out(self, record):
         return UserOut(
