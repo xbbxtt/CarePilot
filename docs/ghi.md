@@ -17,6 +17,7 @@ Patients can log in
 ## Create an Account
 
 Patients can create an account here where they have to supply personal information like name, date of birth, gender, etc
+
 ![alt text](Signup-3.png)
 
 ## Reservation List Pages
@@ -29,10 +30,13 @@ view their past reservations.
 
 In original design, patients would be able to view their past reservations and be able to filter/search through
 the list. But in our final design, we added the features that they can "cancel", "complete" and update a reservation instead.
+
 ![alt text](history8.png)
 
 ## Reservation Detail Page
+
 Here a patient can view more specific information regarding a specific reservation
+
 ![alt text](Reservationdetail-6.png)
 
 ## Create Reservation Page
@@ -41,9 +45,6 @@ When creating a reservation, patients will have to input a date, a time and a do
 and the reason for wanting to be seen.
 
 ![alt text](createres-7.png)
-
-
-
 
 ## Account page
 
