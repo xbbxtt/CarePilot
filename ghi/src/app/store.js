@@ -10,4 +10,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(carePilotApi.middleware)
 })
 
+
 setupListeners(store.dispatch)

@@ -1,19 +1,14 @@
 import psycopg
 from queries.pool import pool
-from psycopg.rows import class_row
-from typing import Optional, Union, List
+from typing import List
 from models.doctors import DoctorsOut, DoctorsIn
-from utils.exceptions import UserDatabaseException
-from models.errors import Error
 from fastapi import HTTPException
 
 
 class DoctorRepository:
-    def create(self, doctor: DoctorsIn) -> Union[DoctorsOut, Error]:
+    def create(self, doctor: DoctorsIn) -> DoctorsOut:
         try:
-
             with pool.connection() as conn:
-
                 with conn.cursor() as db:
                     result = db.execute(
                         """
@@ -31,22 +26,20 @@ class DoctorRepository:
                         ]
                     )
                     id = result.fetchone()[0]
-
                     return self.doctor_in_to_out(id, doctor)
-        except Exception as e:
-            print(e)
+        except Exception:
             raise HTTPException(status_code=401, detail="Create did not work")
+
 
     def doctor_in_to_out(self, id: int, doctor: DoctorsIn):
         old_data = doctor.dict()
         return DoctorsOut(id=id, **old_data)
 
-    def get_doctor(self, doctor_id: int) -> Optional[DoctorsOut]:
+
+    def get_doctor(self, doctor_id: int) -> DoctorsOut:
         try:
             with pool.connection() as conn:
-
                 with conn.cursor() as db:
-
                     result = db.execute(
                         """
                         SELECT *
@@ -59,9 +52,9 @@ class DoctorRepository:
                     )
                     record = result.fetchone()
                     return self.record_to_doctor_out(record)
-        except Exception as e:
-            print(e)
+        except Exception:
             raise HTTPException(status_code=404, detail="Could not get reservation")
+
 
     def record_to_doctor_out(self, record):
         return DoctorsOut(
@@ -72,7 +65,8 @@ class DoctorRepository:
             image=record[4],
         )
 
-    def get_all_doctors(self) -> Union[Error, List[DoctorsOut]]:
+
+    def get_all_doctors(self) -> List[DoctorsOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -87,6 +81,5 @@ class DoctorRepository:
                         self.record_to_doctor_out(record)
                         for record in result
                     ]
-        except Exception as e:
-            print(e)
+        except Exception:
             raise HTTPException(status_code=404, detail="Could not get reservation")

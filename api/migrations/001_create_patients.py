@@ -1,6 +1,5 @@
 steps = [
     [
-        # "Up" SQL statement
         """
         CREATE TABLE users (
             id SERIAL PRIMARY KEY NOT NULL,
@@ -13,7 +12,6 @@ steps = [
             phone VARCHAR(12) NOT NULL
         );
         """,
-        # "Down" SQL statement
         """
         DROP TABLE users;
         """

@@ -1,6 +1,5 @@
 steps = [
     [
-        # "Up" SQL statement
         """
         CREATE TABLE doctors (
             id SERIAL PRIMARY KEY NOT NULL,
@@ -10,7 +9,6 @@ steps = [
             image TEXT NOT NULL
         );
         """,
-        # "Down" SQL statement
         """
         DROP TABLE doctors;
         """
