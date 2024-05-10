@@ -1,7 +1,7 @@
-// @ts-check
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUserUpdateMutation, useAuthenticateQuery } from '../app/apiSlice'
+
 
 const UserUpdate = () => {
     const navigate = useNavigate()
@@ -9,8 +9,7 @@ const UserUpdate = () => {
     const [confirmed_password, setConfirmedPassword] = useState('')
     const [phone, setPhone] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-
-    const { data, isLoading, error } = useAuthenticateQuery()
+    const { data } = useAuthenticateQuery()
     const [userUpdate, userUpdateStatus] = useUserUpdateMutation()
 
     useEffect(() => {
@@ -49,7 +48,6 @@ const UserUpdate = () => {
                 <div className="col-md-6 offset-md-3">
                     <h1>Update Information</h1>
                     <br />
-
                     {errorMessage && (
                         <div className="alert alert-danger" role="alert">
                             {errorMessage}
@@ -128,5 +126,6 @@ const UserUpdate = () => {
         </div>
     )
 }
+
 
 export default UserUpdate

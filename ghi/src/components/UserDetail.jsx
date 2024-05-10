@@ -1,12 +1,11 @@
 import { useAuthenticateQuery } from '../app/apiSlice'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
-import SideNav from './SideNav'
+
 
 const UserDetail = () => {
     const { data, isLoading, error } = useAuthenticateQuery()
     const navigate = useNavigate()
-
 
     if (isLoading) return <>Loading...</>
 
@@ -71,11 +70,10 @@ const UserDetail = () => {
                                 </div>
                         </div>
                     </div>
-
-
-
     )} else {
         return <ErrorNotification error={error} />;
     }
 }
+
+
 export default UserDetail

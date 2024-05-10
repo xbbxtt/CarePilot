@@ -1,7 +1,7 @@
-// @ts-check
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSigninMutation } from '../app/apiSlice'
+
 
 const Login = () => {
     const navigate = useNavigate()
@@ -68,5 +68,6 @@ const Login = () => {
         </div>
     )
 }
+
 
 export default Login

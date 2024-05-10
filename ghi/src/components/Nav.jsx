@@ -1,5 +1,5 @@
-import {Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
-import {useSignoutMutation, useAuthenticateQuery, useSigninMutation} from "../app/apiSlice"
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import {useSignoutMutation, useAuthenticateQuery} from "../app/apiSlice"
 import {useEffect} from 'react'
 import logo from "../img/logo.png"
 
@@ -8,10 +8,8 @@ const Nav = () => {
     const navigate = useNavigate()
     const {data: user} = useAuthenticateQuery()
     const [ signout, signoutStatus] = useSignoutMutation()
-    const [ signin, signinStatus] = useSigninMutation()
     const location = useLocation()
     const home = location.pathname === '/'
-
 
     useEffect(() => {
         if (signoutStatus.isSuccess) navigate('/')
@@ -31,11 +29,9 @@ const Nav = () => {
                     <NavLink to={'/'} className={'nav-link'}>
                         <span className="fw-normal title">CarePilot</span>
                     </NavLink>
-
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-
                     <div className="collapse navbar-collapse justify-content-end align-center" id="navbarNavDropdown">
                         <ul className="navbar-nav">
                             <li className="nav-item">
@@ -50,7 +46,6 @@ const Nav = () => {
                                     </NavLink>
                                 </li>
                             )}
-
                             {!user && (
                                 <li className="nav-item">
                                     <NavLink to={'/signup'} className={'nav-link'}>
@@ -106,7 +101,6 @@ const Nav = () => {
         </div>
     )
 }
-
 
 
 export default Nav;
