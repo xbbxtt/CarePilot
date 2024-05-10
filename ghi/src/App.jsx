@@ -33,7 +33,6 @@ function App() {
         <div className="App">
             <Nav/>
 
-            <header className="App-header">{/* <Nav /> */}</header>
             <Outlet/>
         </div>
     )

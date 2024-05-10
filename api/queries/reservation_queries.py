@@ -151,8 +151,6 @@ class ReservationRepository:
             print(e)
             raise HTTPException(status_code=404, detail="Could not get reservation")
 
-
-
     def get_all_completed_reservations(self) -> Union[Error, List[ReservationDrOut]]:
         try:
             with pool.connection() as conn:

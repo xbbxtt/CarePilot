@@ -4,76 +4,101 @@ import ErrorNotification from './ErrorNotification'
 import SideNav from './SideNav';
 
 const PastReservations = () => {
-    const { data, isLoading, error } = usePastReservationsQuery();
+    const { data, isLoading, error } = usePastReservationsQuery()
 
     if (isLoading) return <>Loading...</>
 
-    if(error == undefined){
+    if (error == undefined) {
         return (
-         <div className="container-fluid h-100">
-            <div className="row h-100">
-                <SideNav/>
-                    <div className="col-10">
-                        <div>
-                            <h1 className='mt-3'>
-                                Reservation History
-                            </h1>
-                        </div>
-                        <div>
-                            <table className="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Doctor</th>
-                                    <th>Reason</th>
-                                    <th>Insurance</th>
-                                    <th>
-                                        <NavLink className="nav-link active" aria-current="page" to={`/reservations/new/`}>
-                                            <button variant="primary">Create New Reservation</button>
-                                        </NavLink>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {data.map(reservation => {
-                                    const currentDate = new Date(reservation.date)
-                                    const date = currentDate.toLocaleDateString()
-                                    const currentTime = new Date(reservation.date+"T"+reservation.time)
-                                    const time = currentTime.toLocaleTimeString()
+            <div>
+                <br />
+                <br />
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="">
+                                <div className="table-responsive">
+                                    <h1 className="crtitle">
+                                        Past Reservations
+                                    </h1>
+                                    <br />
+                                    <table className="table project-list-table table-nowrap align-middle table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Doctor</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Time</th>
+                                                <th scope="col">Reason</th>
+                                                <th scope="col">Insurance</th>
+                                                <th scope="col"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {data.map((reservation) => {
+                                                const currentDate = new Date(
+                                                    reservation.date
+                                                )
+                                                const date =
+                                                    currentDate.toLocaleDateString()
+                                                const currentTime = new Date(
+                                                    reservation.date +
+                                                        'T' +
+                                                        reservation.time
+                                                )
+                                                const time =
+                                                    currentTime.toLocaleTimeString()
 
-
-                                    return (
-                                        // (doctors.map(doctor => {
-                                        <tr key={reservation.id}>
-                                            <td>{date}</td>
-                                            <td>{time}</td>
-                                            <td>
-                                                {reservation.first_name} {reservation.last_name}
-                                            </td>
-                                            <td>{reservation.reason}</td>
-                                            <td>{reservation.insurance}</td>
-                                            {/* <td>
-                                                    <button onClick={() => cancelAppoinment(createdAppointment.id)}>Cancel</button>
-                                                </td>
-                                                <td>
-                                                    <button onClick={() => finishAppoinment(createdAppointment.id)}>Finish</button>
-                                                </td> */}
-                                        </tr>
-                                    )
-                                })}
-                                </tbody>
-                            </table>
+                                                return (
+                                                    <tr key={reservation.id}>
+                                                        <td>
+                                                            <img
+                                                                src={
+                                                                    reservation.image
+                                                                }
+                                                                alt=""
+                                                                className="avatar-sm rounded-circle me-2"
+                                                            />
+                                                            <a
+                                                                href="#"
+                                                                className="text-body"
+                                                            >
+                                                                {
+                                                                    reservation.first_name
+                                                                }{' '}
+                                                                {
+                                                                    reservation.last_name
+                                                                }
+                                                            </a>
+                                                        </td>
+                                                        <td>{date}</td>
+                                                        <td>{time}</td>
+                                                        <td>
+                                                            <span className="badge badge-soft-success mb-0">
+                                                                {
+                                                                    reservation.reason
+                                                                }
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                reservation.insurance
+                                                            }
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-       </div>
-    )
-}
-
-    else {
-        return (<div><ErrorNotification error={error} /></div>)
-
-}
+            </div>
+        )
+    } else {
+        return <ErrorNotification error={error} />
+    }
 }
 export default PastReservations;
