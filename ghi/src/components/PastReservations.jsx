@@ -1,13 +1,10 @@
 import { usePastReservationsQuery } from '../app/apiSlice';
-import { NavLink } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
-import SideNav from './SideNav';
+
 
 const PastReservations = () => {
     const { data, isLoading, error } = usePastReservationsQuery()
-
     if (isLoading) return <>Loading...</>
-
     if (error == undefined) {
         return (
             <div>
@@ -47,7 +44,6 @@ const PastReservations = () => {
                                                 )
                                                 const time =
                                                     currentTime.toLocaleTimeString()
-
                                                 return (
                                                     <tr key={reservation.id}>
                                                         <td>
@@ -101,4 +97,6 @@ const PastReservations = () => {
         return <ErrorNotification error={error} />
     }
 }
+
+
 export default PastReservations;

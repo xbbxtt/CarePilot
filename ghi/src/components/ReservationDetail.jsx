@@ -2,7 +2,7 @@ import { useReservationDetailQuery, useReservationCompleteMutation, useReservati
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import ErrorNotification from './ErrorNotification'
 import {useEffect } from 'react'
-import SideNav from './SideNav'
+
 
 const reservationDetail = () => {
     const { id } = useParams()
@@ -10,7 +10,6 @@ const reservationDetail = () => {
     const navigate = useNavigate()
     const [completeReservation, completeReservationStatus] = useReservationCompleteMutation()
     const [cancelReservation, cancelReservationStatus] = useReservationCancelledMutation()
-
 
     useEffect(() => {
         if (completeReservationStatus.isSuccess)
@@ -31,7 +30,6 @@ const reservationDetail = () => {
             setErrorMessage(cancelReservationStatus.error.data.detail)
         }
     }, [cancelReservationStatus, navigate])
-
 
     if (isLoading) return <>Loading...</>
 
@@ -123,11 +121,10 @@ const reservationDetail = () => {
                                 </div>
                         </div>
                     </div>
-
-
-
     )} else {
         return <ErrorNotification error={error} />;
     }
 }
+
+
 export default reservationDetail

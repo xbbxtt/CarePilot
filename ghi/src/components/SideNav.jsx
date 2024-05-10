@@ -1,15 +1,11 @@
-import {Link, NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useAuthenticateQuery } from '../app/apiSlice'
-import '../style.css'
+
 
 const SideNav = () => {
-
     const {data: user} = useAuthenticateQuery()
-
     return (
-
         <div className="col-2" id="navbarNav2">
-
                 <h4>Sidebar</h4>
             <div className="sidenav-font">
                 <br/>
@@ -52,22 +48,16 @@ const SideNav = () => {
                                         Create New Reservation
                                 </NavLink>
                                 </button>
-
-
                             </div>
                         </div>
                      </>
                 )}
                 <br/>
                 <br/>
-
             </div>
-
         </div>
-
     )
 }
-
 
 
 export default SideNav;

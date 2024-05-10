@@ -1,7 +1,7 @@
-// @ts-check
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useNewReservationMutation, useDoctorsQuery } from '../app/apiSlice'
+
 
 const newReservation = () => {
     const navigate = useNavigate()
@@ -13,7 +13,6 @@ const newReservation = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [newReservation, newReservationsStatus] = useNewReservationMutation()
     const { data:doctors, isLoading} = useDoctorsQuery()
-
 
     useEffect(() => {
         if (newReservationsStatus.isSuccess)
@@ -107,21 +106,6 @@ const newReservation = () => {
                                 onChange={(e) => setTime(e.target.value)}
                             />
                         </div>
-                        {/* <div className="mb-3">
-                            <label
-                                htmlFor="newReservation_doctorId"
-                                className="form-label"
-                            >
-                                Doctor
-                            </label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                id="newReservation_doctorId"
-                                value={doctor_id}
-                                onChange={(e) => setDoctorId(e.target.value)}
-                            />
-                        </div> */}
                         <div className="mb-3">
                             <select onChange={(e) => setDoctorId(e.target.value)} value={doctor_id} required name="doctor" id="doctor" className="form-select">
                                 <option value="">Choose a doctor</option>
@@ -141,5 +125,6 @@ const newReservation = () => {
             </div>
     )
 }
+
 
 export default newReservation

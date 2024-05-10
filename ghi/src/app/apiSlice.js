@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+
 export const carePilotApi = createApi({
     reducerPath: 'carePilotApi',
     baseQuery: fetchBaseQuery({
@@ -46,7 +47,6 @@ export const carePilotApi = createApi({
                 body,
                 credentials: 'include',
             }),
-            // invalidatesTags: ['Users'],
         }),
         currentReservations: builder.query({
             query: () => ({
@@ -54,7 +54,6 @@ export const carePilotApi = createApi({
                 method: 'GET',
                 credentials: 'include',
             }),
-            // invalidatesTags: ['Users'],
         }),
         pastReservations: builder.query({
             query: () => ({
@@ -62,7 +61,6 @@ export const carePilotApi = createApi({
                 method: 'GET',
                 credentials: 'include',
             }),
-            // invalidatesTags: ['Users'],
         }),
         reservationDetail: builder.query({
             query: (reservation_id) => ({
@@ -71,7 +69,6 @@ export const carePilotApi = createApi({
                 reservation_id,
                 credentials: 'include',
             }),
-            // invalidatesTags: ['Users'],
         }),
         reservationUpdate: builder.mutation({
             query: ({ reservation_id, body }) => ({
@@ -80,7 +77,6 @@ export const carePilotApi = createApi({
                 body,
                 credentials: 'include',
             }),
-            // invalidatesTags: ['Users'],
         }),
         reservationComplete: builder.mutation({
             query: (reservation_id) => ({
@@ -89,7 +85,6 @@ export const carePilotApi = createApi({
                 reservation_id,
                 credentials: 'include',
             }),
-            // invalidatesTags: ['Users'],
         }),
         reservationCancelled: builder.mutation({
             query: (reservation_id) => ({
@@ -98,7 +93,6 @@ export const carePilotApi = createApi({
                 reservation_id,
                 credentials: 'include',
             }),
-            // invalidatesTags: ['Users'],
         }),
         userUpdate: builder.mutation({
             query: (body) => ({
@@ -117,6 +111,7 @@ export const carePilotApi = createApi({
         }),
     }),
 })
+
 
 export const {
     useAuthenticateQuery,

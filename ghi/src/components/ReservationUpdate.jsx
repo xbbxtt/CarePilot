@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams, NavLink } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useReservationUpdateMutation, useReservationDetailQuery } from '../app/apiSlice'
+
 
 const ReservationUpdate = () => {
     const { id } = useParams()
-    const { data, isLoading, error } = useReservationDetailQuery(id)
-
-
+    const { data, isLoading } = useReservationDetailQuery(id)
     const navigate = useNavigate()
     const [insurance, setInsurance] = useState('')
     const [reason, setReason] = useState('')
@@ -14,9 +13,6 @@ const ReservationUpdate = () => {
     const [time, setTime] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [reservationUpdate, reservationUpdateStatus] = useReservationUpdateMutation()
-
-
-
 
     useEffect(() => {
         if (data) {
@@ -39,7 +35,6 @@ const ReservationUpdate = () => {
 
     if (isLoading) return <>Loading...</>
 
-
     const handleSubmit = (e) => {
         e.preventDefault()
         reservationUpdate({
@@ -60,7 +55,6 @@ const ReservationUpdate = () => {
                 <br />
                 <h1 className="text-center">Update Reservation</h1>
                 <br />
-
                 {errorMessage && (
                     <div className="alert alert-danger" role="alert">
                         {errorMessage}
@@ -151,5 +145,6 @@ const ReservationUpdate = () => {
         </div>
     )
 }
+
 
 export default ReservationUpdate

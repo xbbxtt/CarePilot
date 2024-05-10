@@ -1,7 +1,7 @@
-// @ts-check
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSignupMutation } from '../app/apiSlice'
+
 
 const Signup = () => {
     const navigate = useNavigate()
@@ -15,7 +15,6 @@ const Signup = () => {
     const [phone, setPhone] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [signup, signupStatus] = useSignupMutation()
-
 
     useEffect(() => {
         if (signupStatus.isSuccess) navigate('/reservations')
@@ -170,5 +169,6 @@ const Signup = () => {
     </div>
     )
 }
+
 
 export default Signup

@@ -1,3 +1,4 @@
+import os
 from fastapi import Request, APIRouter
 from fastapi.responses import RedirectResponse
 import requests.auth
@@ -8,35 +9,31 @@ import json
 router = APIRouter()
 
 
+CLIENT_ID = os.environ.get("CLIENT_ID")
+CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
+
+
 @router.get("/zoom")
-def authorize_zoom(request: Request):
-
-    full_authorization_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id=OAwVjWjqQIGaSCrCpzprAw&redirect_uri=http://localhost:8000/callback"
-
+def authorize_zoom():
+    full_authorization_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id={CLIENT_ID}&redirect_uri=http://localhost:8000/callback"
     return RedirectResponse(url=full_authorization_url)
 
 
 @router.get("/callback")
 def get_token(code):
-    CLIENT_ID = "OAwVjWjqQIGaSCrCpzprAw"
-    CLIENT_SECRET = "L7NJbej3HQUJuJTuKXexq7AulrRyUX0h"
     REDIRECT_URI = "http://localhost:8000/callback"
     client_auth = requests.auth.HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET)
     post_data = {"grant_type": "authorization_code",
                  "code": code,
                  "redirect_uri": REDIRECT_URI}
-
     response = requests.post("https://zoom.us/oauth/token",
                              auth=client_auth,
                              data=post_data)
     token_json = response.json()
     token = token_json["access_token"]
-    print(token)
-
-
     with pool.connection() as conn:
         with conn.cursor() as db:
-            result = db.execute(
+            db.execute(
                 """
                 UPDATE tokens
                 SET token = %s
@@ -46,7 +43,6 @@ def get_token(code):
                     token,
                 ]
             )
-
     return token
 
 
@@ -66,7 +62,6 @@ meeting_detials = {
     "type": 1,
     "weekly_days": "1"
   },
-
   "settings": {
     "additional_data_center_regions": [
       "TY"
@@ -114,7 +109,6 @@ meeting_detials = {
     "encryption_type": "enhanced_encryption",
     "focus_mode": True,
     "global_dial_in_countries": [
-
     ],
     "host_video": True,
     "jbh_time": 0,
@@ -186,9 +180,7 @@ meeting_detials = {
 }
 
 
-
 def create_meeting():
-
     with pool.connection() as conn:
         with conn.cursor() as db:
             result = db.execute(
@@ -199,18 +191,10 @@ def create_meeting():
                 """,
             )
             token = result.fetchone()[0]
-            print("----------------------------------", token)
-
     headers= {"Authorization": "bearer " + token, 'content-type': 'application/json'}
     response = requests.post("https://api.zoom.us/v2/users/me/meetings", headers=headers, data=json.dumps(meeting_detials))
-    print("+++++++++++++++++++++++++++++++++++", response)
     meeting = response.json()
-    print("+++++++++++++++++++++++++++++++++++", meeting)
-    start_url = meeting["start_url"]
     join_url = meeting["join_url"]
-    print("+++++++++++++++++++++++++++++++++++", join_url)
-    print("==================================", start_url)
-
     return join_url
 
 
@@ -218,3 +202,8 @@ def create_meeting():
 def url():
     url = create_meeting()
     return url
+
+
+def create_d_meeting():
+    join_url = "https://us04web.zoom.us/j/76895945229?pwd=eY9SxeEi2NAuaBarNIfhJKEVpQVYOv.1"
+    return join_url

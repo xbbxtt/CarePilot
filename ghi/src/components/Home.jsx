@@ -1,6 +1,5 @@
-import {Link, NavLink, useNavigate} from 'react-router-dom'
-import {useEffect} from 'react'
-import {useNewReservationMutation, useAuthenticateQuery, useDoctorsQuery} from "../app/apiSlice"
+import {Link} from 'react-router-dom'
+import {useAuthenticateQuery, useDoctorsQuery} from "../app/apiSlice"
 import '../style.css'
 import headerimage from "../img/headerimage.jpg"
 
@@ -8,9 +7,7 @@ import headerimage from "../img/headerimage.jpg"
 const Home = () => {
     const {data: user} = useAuthenticateQuery()
     const { data:doctors, isLoading} = useDoctorsQuery()
-
     if (isLoading) return <>Loading...</>
-
     return (
         <>
             <div className= "p-3 mb-2 bg-light.bg-gradient text-black background-color-main">
@@ -19,10 +16,6 @@ const Home = () => {
                     <br />
                     <br />
                     <br />
-
-
-
-
                         <div className="container-lg">
                                 <div className="row justify-content-center">
                                     <div className="col-md-5 text-center text-md-start">
@@ -52,20 +45,15 @@ const Home = () => {
                                             </Link>
                                         )}
                                         </div>
-
-
-
                                     <div className="col-md-7 text-center text-md-start justify-content-center">
                                         <img className="img-fluid"
                                                 src={ headerimage }
                                                 alt="header image"
                                             />
-
                                     </div>
                                 </div>
                         </div>
                 </div>
-
                 <br/>
                 <br/>
                 <br/>
@@ -74,8 +62,6 @@ const Home = () => {
                 <br/>
                 <br/>
                 <br/>
-
-
             <div className="cards">
                 <div className="container-xl py-5">
                         <div className="team-cards">
@@ -92,7 +78,7 @@ const Home = () => {
                             {
                                 doctors.map(doctor => {
                                     return (
-                                        <div className="col-xl-3 col-sm-6 mb-5">
+                                        <div className="col-xl-3 col-sm-6 mb-5" key={doctor.id}>
                                             <div className="bg-white rounded shadow-sm py-5 px-4 individual-card">
                                                 <img
                                                     src={doctor.image}
@@ -133,7 +119,6 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-
                 <br/>
                 <br/>
                 <br/>
@@ -144,8 +129,6 @@ const Home = () => {
                 <br/>
                 <br/>
                 <br/>
-
-
             </div>
             <footer>
                     <div className="footer ">
@@ -153,7 +136,6 @@ const Home = () => {
                             <div className="row text-center">
                                 <div className="col-lg-12 col-sm-12 col-xs-12">
                                     <div className="footer_menu">
-
                                         <br />
                                         <ul>
                                             <span><a href="#">Home</a></span>
@@ -184,7 +166,7 @@ const Home = () => {
                     </div>
                 </footer>
     </>
-
         )}
+
 
 export default Home;
