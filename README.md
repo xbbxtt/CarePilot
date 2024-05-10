@@ -22,21 +22,17 @@ We are targeting general consumers in health market who are looking for a quick 
 
 ## Functionality
 
-<!-- - Visitors to the site can take a home or body scent profile quiz that will filter Smelli Belli’s products to match their tastes:
-  - A home quiz to find them a home product that matches their scent profile
-  - A body quiz to find them a body product that matches their scent profile
-- Users can click on suggested products to go to product detail page to either wish list or add to cart
-- Products page for a plain list view of all products
-- Accounts
-- Employees can add new products, view/search inventory, and update inventory stock
-- Wish list for registered accounts so users can build a list of products based on their preferences/quiz results and save those grouped products for later
-- About Page with company info, ingredient sourcing info, and FAQ
-- Social Media Links/Contact at the footer
-- Contact => Email or Help Chat via Facebook Messenger for questions/suggestions
-- Main Page features popular products and quizzes
-- The cart features products that was added from the product page
-  - update quantity with an increment and decrement counter
-  - can checkout and will populate the order end point -->
+<-- - Visitors to the site are able to make a reservation to see a dr.
+- On the home page they will see a group of our doctors and what they specialize in. Along with our mission statement.
+- Users will need to click on sign up to create a profile and it will direct them to their current reservations list.
+- Once logged in, they can click the create reservation link in the reservations dropdown to make a reservation to see a dr.
+- They can click the past reservations link in the reservations dropdown to take them to see their history of completed reservations.
+- They can click on the clipboard icon in their current reservations page to take them to the details of that reservation where the can cancel their reservation with the red x, complete their reservation with the green checkmark, or edit their reservation with the yellow pencil.
+- Completing the reservation will send it to the past reservations to see.
+- In the update reservations page, patients can edit their insurance, reason for the visit, the date of the reservation, and the time of the reservation.
+- Patients can access the details to their profile by clicking on the profile link at the top of the page in the nav bar.
+- Once on their details page, patients can click on the yellow pencil to take them to their update information page where they can update their password and phone number.
+- On any page, as well as using the home button to get home they can click either the company logo or name and it will take them back to the home page. -->
 
 ## Project Initialization
 
