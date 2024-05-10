@@ -164,7 +164,7 @@ const Home = () => {
                                             &nbsp;&nbsp;&nbsp;
                                         </ul>
                                     </div>
-                                    <div className="footer_copyright">
+                                    <div className="footer_copyright text-secondary">
                                         <p>© 2024 Carepilot All Rights Reserved</p>
                                     </div>
                                     <div className="footer_profile">
