@@ -1,150 +1,55 @@
-# Module3 Project Gamma
+# CarePilot
 
-## Getting started
+- Shiran Xiao
+- Genessy Munoz
+- Sean Burch
+- Jose Medina
+- Stanley Dorosz
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
+CarePilot – Experience the future of healthcare with our state-of-the-art virtual care platform that connects you with highly qualified doctors across a multitude of specialties, all from the comfort of your home.
 
-## Install Extensions
 
--   Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
--   Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
+## Design
 
-## Deliverables
+- [API design](docs/apis.md)
+- [Data model](docs/data-model.md)
+- [GHI](docs/ghi.md)
+- [Integrations](docs/integrations.md)
 
--   [ ] Wire-frame diagrams
--   [ ] API documentation
--   [ ] Project is deployed to Caprover (BE, DB) & GitLab-pages (FE)
--   [ ] GitLab issue board is setup and in use (or project management tool of choice)
--   [ ] Journals
+## Intended market
 
-## Project layout
+We are targeting general consumers in health market who are looking for a quick face-to-face meeting with doctors.
 
-The layout of the project is just like all of the projects
-you did with `docker-compose` in module #2. You will create
-a directory in the root of the repository for each service
-that you add to your project just like those previous
-projects were setup.
+## Functionality
 
-### Directories
+<-- - Visitors to the site are able to make a reservation to see a dr.
+- On the home page they will see a group of our doctors and what they specialize in. Along with our mission statement.
+- Users will need to click on sign up to create a profile and it will direct them to their current reservations list.
+- Once logged in, they can click the create reservation link in the reservations dropdown to make a reservation to see a dr.
+- They can click the past reservations link in the reservations dropdown to take them to see their history of completed reservations.
+- They can click on the clipboard icon in their current reservations page to take them to the details of that reservation where the can cancel their reservation with the red x, complete their reservation with the green checkmark, or edit their reservation with the yellow pencil.
+- Completing the reservation will send it to the past reservations to see.
+- In the update reservations page, patients can edit their insurance, reason for the visit, the date of the reservation, and the time of the reservation.
+- Patients can access the details to their profile by clicking on the profile link at the top of the page in the nav bar.
+- Once on their details page, patients can click on the yellow pencil to take them to their update information page where they can update their password and phone number.
+- On any page, as well as using the home button to get home they can click either the company logo or name and it will take them back to the home page. -->
 
-Several directories have been added to your project. The
-directories `docs` and `journals` are places for you and
-your team-mates to, respectively, put any documentation
-about your project that you create and to put your
-project-journal entries. See the _README.md_ file in each
-directory for more info.
+## Project Initialization
 
-The other directories, `ghi` and `api`, are services, that
-you can start building off of.
+To fully enjoy this application on your local machine, please make sure to follow these steps:
 
-Inside of `ghi` is a minimal React app that has an "under construction" page.
-This app is written using the [Vite](https://vitejs.dev/) bundler. The example
-code is also using [jsdoc](https://jsdoc.app/) to provide type hints for
-JavaScript. You are not required to use JSDoc yourself, and you will be removing
-these examples and providing your own code for `App.jsx`
-
-Inside of `api` is a minimal FastAPI application.
-"Where are all the files?" you might ask? Well, the
-`main.py` file is the whole thing, and go take look inside
-of it... There's not even much in there..., hmm? That is
-FastAPI, we'll learn more about it in the coming days. Can
-you figure out what this little web-application does even
-though you haven't learned about FastAPI yet?
-
-Also in `api` is a directory for your migrations.
-If you choose to use PostgreSQL, then you'll want to use
-migrations to control your database. Unlike Django, where
-migrations were automatically created for you, you'll write
-yours by hand using DDL. Don't worry about not knowing what
-DDL means; we have you covered. There's a sample migration
-in there that creates two tables so you can see what they
-look like.
-
-The Dockerfile and Dockerfile.dev run your migrations
-for you automatically.
-
-### Other files
-
-The following project files have been created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
-
--   `docker-compose.yaml`: there isn't much in here, just a
-    **really** simple UI and FastAPI service. Add services
-    (like a database) to this file as you did with previous
-    projects in module #2.
--   `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-    configure automated unit tests, code quality checks, and
-    the building and deployment of your production system.
-    Currently, all it does is deploy an "under construction"
-    page to your production UI on GitLab and a sample backend
-    to CapRover. We will learn much more about this file.
--   `.gitignore`: This is a file that prevents unwanted files
-    from getting added to your repository, files like
-    `pyc` files, `__pycache__`, etc. We've set it up so that
-    it has a good default configuration for Python projects.
--   `.env.sample`: This file is a template to copy when
-    creating environment variables for your team. Create a
-    copy called `.env` and put your own passwords in here
-    without fear of it being committed to git (see `.env`
-    listed in `.gitignore`). You can also put team related
-    environment variables in here, things like api and signing
-    keys that shouldn't be committed; these should be
-    duplicated in your deployed environments.
-
-### Installing python dependencies locally
-
-In order for VSCode's built in code completion and intelligence to
-work correctly, it needs the dependencies from the requirements.txt file
-installed. We do this inside docker, but not in the workspace.
-
-So we need to create a virtual environment and pip install the requirements.
-
-From inside the `api` folder:
-
-```bash
-python -m venv .venv
-```
-
-Then activate the virtual environment
-
-```bash
-source .venv/bin/activate
-```
-
-And finally install the dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Then make sure the venv is selected in VSCode by checking the lower right of the
-VSCode status bar
-
-### Setup GitLab repo/project
-
--   make sure this project is in a group. If it isn't, stop
-    now and move it to a GitLab group
--   remove the fork relationship: In GitLab go to:
-
-    Settings -> General -> Advanced -> Remove fork relationship
-
--   add these GitLab CI/CD variables:
-    -   PUBLIC_URL : this is your gitlab pages URL
-    -   VITE_APP_API_HOST: enter "blank" for now
-
-#### Your GitLab pages URL
-
-You can't find this in GitLab until after you've done a deploy
-but you can figure it out yourself from your GitLab project URL.
-
-If this is your project URL
-
-https://gitlab.com/GROUP_NAME/PROJECT_NAME
-
-then your GitLab pages URL will be
-
-https://GROUP_NAME.gitlab.io/PROJECT_NAME
+1. Clone the repository down to your local machine
+2. CD into the new project directory
+3. Run `docker volume create database_volume`
+4. Run `docker compose build`
+5. Run `docker compose up`
+6. Go to `https://marketplace.zoom.us/` and login with your own zoom account
+7. Click `Develop` -> `Build App`
+8. Copy and add `Client ID` and `Client Secret` to .env
+9. Go back to zoom marketplace and add `http://localhost:8000/callback` in the `OAuth Redirect URL` filed
+10. In `Surface` tab, select `Meeting`, `Room` and `Phone`. Also enable `Zoom App SDK` and `Guest Mode`
+11. In `Scopes` tap, add `meeting:write:meeting` and `zoomapp:inmeeting`
+12. go to `http://localhost:8000/zoom` and finish authorization process. This will return access token which allows meeting link to be created.
+13. Access token will expire in 1 hour. You need to repeat step 12 to get a new access token
+14. `http://localhost:8000/url` can be used to confirm meeting url is generated
+15. Out web application is ready to use. Feel free to create reservation!
