@@ -11,7 +11,9 @@ const Login = () => {
     const [signin, signinStatus] = useSigninMutation()
 
     useEffect(() => {
-        if (signinStatus.isSuccess) navigate('/reservations')
+        if (signinStatus.isSuccess) {
+            navigate('/reservations')
+        }
         if (signinStatus.isError) {
             setErrorMessage(signinStatus.error.data.detail)
         }

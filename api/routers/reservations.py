@@ -40,7 +40,7 @@ def get_all_current_reservations(
 ) -> List[ReservationDrOut]:
     if user_response is None:
         raise HTTPException(status_code=401, detail='You must login!')
-    return repo.get_all_current_reservations()
+    return repo.get_all_current_reservations(user_response.id)
 
 
 @router.get("/api/history/reservations", response_model=List[ReservationDrOut])

@@ -1,22 +1,15 @@
-"""
-Entry point for the FastAPI Application
-"""
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, RedirectResponse
 from routers import auth_router, reservations, doctors, zoom
-import os
-import requests.auth
-from queries.pool import pool
-import json
 
 
 app = FastAPI()
 
+origins = ["CORS_HOST", "http://localhost:5173", "https://zoom.us"]
+
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=[os.environ.get("CORS_HOST", "http://localhost:5173")],
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

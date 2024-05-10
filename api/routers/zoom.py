@@ -1,3 +1,4 @@
+import os
 from fastapi import Request, APIRouter
 from fastapi.responses import RedirectResponse
 import requests.auth
@@ -8,16 +9,18 @@ import json
 router = APIRouter()
 
 
+CLIENT_ID = os.environ.get("CLIENT_ID")
+CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
+
+
 @router.get("/zoom")
 def authorize_zoom():
-    full_authorization_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id=OAwVjWjqQIGaSCrCpzprAw&redirect_uri=http://localhost:8000/callback"
+    full_authorization_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id={CLIENT_ID}&redirect_uri=http://localhost:8000/callback"
     return RedirectResponse(url=full_authorization_url)
 
 
 @router.get("/callback")
 def get_token(code):
-    CLIENT_ID = "OAwVjWjqQIGaSCrCpzprAw"
-    CLIENT_SECRET = "L7NJbej3HQUJuJTuKXexq7AulrRyUX0h"
     REDIRECT_URI = "http://localhost:8000/callback"
     client_auth = requests.auth.HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET)
     post_data = {"grant_type": "authorization_code",
@@ -199,3 +202,8 @@ def create_meeting():
 def url():
     url = create_meeting()
     return url
+
+
+def create_d_meeting():
+    join_url = "https://us04web.zoom.us/j/76895945229?pwd=eY9SxeEi2NAuaBarNIfhJKEVpQVYOv.1"
+    return join_url

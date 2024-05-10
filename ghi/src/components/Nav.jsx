@@ -12,7 +12,10 @@ const Nav = () => {
     const home = location.pathname === '/'
 
     useEffect(() => {
-        if (signoutStatus.isSuccess) navigate('/')
+        if (signoutStatus.isSuccess) {
+            navigate('/')
+            window.location.reload()
+        }
     }, [signoutStatus])
 
     const onSignoutClick = (e) => {
@@ -20,7 +23,7 @@ const Nav = () => {
     }
 
     return (
-        <div className>
+        <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
                     <NavLink to={'/'} className={'nav-link'}>

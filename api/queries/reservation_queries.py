@@ -105,7 +105,7 @@ class ReservationRepository:
         )
 
 
-    def get_all_current_reservations(self) -> List[ReservationDrOut]:
+    def get_all_current_reservations(self, user_id: int) -> List[ReservationDrOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -126,10 +126,10 @@ class ReservationRepository:
                             r.meeting_url
                         FROM reservations r
                         INNER JOIN Doctors d ON r.Doctor_id = d.id
-                        WHERE status=%s
+                        WHERE r.status=%s AND r.patient_id=%s
                         ORDER BY date;
                         """,
-                        ["current"]
+                        ["current", user_id]
                     )
                     return [
                         self.record_to_reservation_dr_out(record)

@@ -78,7 +78,7 @@ const Home = () => {
                             {
                                 doctors.map(doctor => {
                                     return (
-                                        <div className="col-xl-3 col-sm-6 mb-5">
+                                        <div className="col-xl-3 col-sm-6 mb-5" key={doctor.id}>
                                             <div className="bg-white rounded shadow-sm py-5 px-4 individual-card">
                                                 <img
                                                     src={doctor.image}
