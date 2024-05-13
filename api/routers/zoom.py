@@ -15,7 +15,11 @@ CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 
 @router.get("/zoom")
 def authorize_zoom():
-    full_authorization_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id={CLIENT_ID}&redirect_uri=http://localhost:8000/callback"
+    full_authorization_url = f"https:
+    //zoom.us/oauth/authorize?
+    response_type=code&client_id
+    ={CLIENT_ID}&redirect_uri=
+    http://localhost:8000/callback"
     return RedirectResponse(url=full_authorization_url)
 
 
@@ -204,8 +208,3 @@ def create_meeting():
 def url():
     url = create_meeting()
     return url
-
-
-def create_d_meeting():
-    join_url = "https://us04web.zoom.us/j/76895945229?pwd=eY9SxeEi2NAuaBarNIfhJKEVpQVYOv.1"
-    return join_url

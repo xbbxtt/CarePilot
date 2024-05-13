@@ -82,7 +82,8 @@ class UserQueries:
                     user = cur.fetchone()
                     if not user:
                         raise UserDatabaseException(
-                            f"Could not create user with username {username.username}"
+                            f"Could not create user
+                            with username {username.username}"
                         )
         except psycopg.Error:
             raise UserDatabaseException(

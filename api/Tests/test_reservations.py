@@ -158,8 +158,10 @@ class FakeReservationRepository:
 
 
 def test_create():
-    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
-    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+    app.dependency_overrides[
+        ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[
+        try_get_jwt_user_data] = fake_try_get_jwt_user_data
     body = {
         "insurance": "fidelis",
         "reason": "arm pain",
@@ -183,8 +185,10 @@ def test_create():
 
 
 def test_get_reservation():
-    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
-    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+    app.dependency_overrides[
+        ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[
+        try_get_jwt_user_data] = fake_try_get_jwt_user_data
     res = client.get('/api/reservations/1')
     data = res.json()
     assert res.status_code == 200
@@ -204,8 +208,10 @@ def test_get_reservation():
 
 
 def test_get_all_current_reservations():
-    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
-    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+    app.dependency_overrides[
+        ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[
+        try_get_jwt_user_data] = fake_try_get_jwt_user_data
     res = client.get('/api/reservations')
     data = res.json()
     assert res.status_code == 200
@@ -252,8 +258,10 @@ def test_get_all_current_reservations():
 
 
 def test_get_all_completed_reservations():
-    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
-    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+    app.dependency_overrides[
+        ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[
+        try_get_jwt_user_data] = fake_try_get_jwt_user_data
     res = client.get('/api/history/reservations')
     data = res.json()
     assert res.status_code == 200
@@ -302,8 +310,10 @@ def test_get_all_completed_reservations():
 
 
 def test_update_reservation():
-    app.dependency_overrides[ReservationRepository] = FakeReservationRepository
-    app.dependency_overrides[try_get_jwt_user_data] = fake_try_get_jwt_user_data
+    app.dependency_overrides[
+        ReservationRepository] = FakeReservationRepository
+    app.dependency_overrides[
+        try_get_jwt_user_data] = fake_try_get_jwt_user_data
     body = {
         "insurance": "fidelis",
         "reason": "arm pain",
