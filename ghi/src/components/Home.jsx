@@ -147,6 +147,9 @@ const Home = () => {
                                         </ul>
                                     </div>
                                     <div className="footer_copyright text-secondary">
+                                        <p>Shiran Xiao, Genessy Munoz, Stanley Dorosz, Jose Medina, Sean Burch</p>
+                                    </div>
+                                    <div className="footer_copyright text-secondary">
                                         <p>© 2024 Carepilot All Rights Reserved</p>
                                     </div>
                                     <div className="footer_profile">
