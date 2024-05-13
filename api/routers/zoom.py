@@ -15,11 +15,7 @@ CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 
 @router.get("/zoom")
 def authorize_zoom():
-    full_authorization_url = f"https:
-    //zoom.us/oauth/authorize?
-    response_type=code&client_id
-    ={CLIENT_ID}&redirect_uri=
-    http://localhost:8000/callback"
+    full_authorization_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id={CLIENT_ID}&redirect_uri=http://localhost:8000/callback"
     return RedirectResponse(url=full_authorization_url)
 
 
