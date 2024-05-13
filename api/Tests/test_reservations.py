@@ -51,7 +51,7 @@ class FakeReservationRepository:
         }
         return sample_reservations
 
-    def get_all_current_reservations(self):
+    def get_all_current_reservations(self, user_id):
         sample_reservations = [{
             "insurance": "blue",
             "reason": "test",
@@ -93,7 +93,7 @@ class FakeReservationRepository:
         }]
         return sample_reservations
 
-    def get_all_completed_reservations(self):
+    def get_all_completed_reservations(self, user_id):
         sample_reservations = [
             {
                 "insurance": "blue",

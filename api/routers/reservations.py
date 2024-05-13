@@ -54,7 +54,7 @@ def get_all_completed_reservations(
 ) -> List[ReservationDrOut]:
     if user_response is None:
         raise HTTPException(status_code=401, detail='You must login!')
-    return repo.get_all_completed_reservations()
+    return repo.get_all_completed_reservations(user_response.id)
 
 
 @router.put("/api/reservations/{reservation_id}",
