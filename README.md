@@ -1,10 +1,4 @@
-# CarePilot
 
-- Shiran Xiao
-- Genessy Munoz
-- Sean Burch
-- Jose Medina
-- Stanley Dorosz
 
 CarePilot – Experience the future of healthcare with our state-of-the-art virtual care platform that connects you with highly qualified doctors across a multitude of specialties, all from the comfort of your home.
 
